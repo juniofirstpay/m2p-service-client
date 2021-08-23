@@ -1,10 +1,10 @@
 from typing import ContextManager, Dict, List
 from contextlib import contextmanager
-from schema import (CreateAccountSchema, 
+from .schema import (CreateAccountSchema, 
                     CreateAccountHolderSchema, 
                     CreateResourceSchema, UpdateFormFactorStatusSchema,
                     UpdateResourceStatusSchema)
-from service import ZetaService
+from .service import ZetaService
 
 
 class ZetaMicroClient(object):
@@ -33,19 +33,21 @@ class ZetaMicroClient(object):
                             gender: str,
                             kyc_type: str,
                             kyc_value: str,
-                            mobile_number: str) -> Dict:
+                            phone_number: str) -> Dict:
         data = {
             'first_name': first_name,
             'middle_name': middle_name,
             'last_name': last_name,
-            'date_of_birth': date_of_birth,
+            'dob': date_of_birth,
             'gender': gender,
             'kyc_type': kyc_type,
             'kyc_value': kyc_value,
-            'mobile_number': mobile_number
+            'phone_number': phone_number
         }
         valid_data = CreateAccountHolderSchema().load(data)
-        response = self.zeta_service.create_account_holder(**valid_data)
+        dob = valid_data.pop('dob')
+        phone_number = '+91' + valid_data.pop('phone_number')
+        response = self.zeta_service.create_account_holder(**valid_data, phone_number=phone_number, dob=dob.isoformat())
         return response
 
     def get_account_holder(self, type: str, value: str):
@@ -59,6 +61,10 @@ class ZetaMicroClient(object):
     def get_account(self, account_id: str) -> List[Dict]:
         response = self.zeta_service.get_account(account_id)
         return response
+
+    def update_account(self, account_id: str, status: str) -> List[Dict]:
+        response = self.zeta_service.update_account(account_id, status=status)
+        return response
     
     # Make the 
     def create_account(self, 
@@ -66,11 +72,13 @@ class ZetaMicroClient(object):
                         account_name: str) -> Dict:
         data={
             'account_holder_id': account_holder_id,
-            'accounts': account_name
+            'accounts': [account_name]
         }
         valid_data = CreateAccountSchema().load(data)
-        response = self.zeta_service.create_account(**valid_data)
-        return response
+        (error, response) = self.zeta_service.create_account(**valid_data)
+        if error:
+            return error, response
+        return (None, response[0])
 
     def get_resources(self, account_holder_id: str) -> List[Dict]:
         response = self.zeta_service.get_resources(account_holder_id)
@@ -83,15 +91,15 @@ class ZetaMicroClient(object):
     def create_resource(self, 
                         account_holder_id: str,
                         account_id: str,
-                        mobile_number: str) -> Dict:
+                        phone_number: str) -> Dict:
         
         data = {
             'account_holder_id': account_holder_id,
             'account_id': account_id,
-            'mobile_number': mobile_number
+            'phone_number': phone_number
         }
         valid_data = CreateResourceSchema().load(data)
-        response = self.create_resource(**valid_data)    
+        response = self.zeta_service.create_resource(**valid_data)    
         return response
 
 
