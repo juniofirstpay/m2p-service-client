@@ -23,6 +23,11 @@ class ZetaService(object):
 
     base_url_update_account='/account/{account_id}/update'
 
+    base_url_account_debit = "/transactions/debit"
+    base_url_account_credit = "/transactions/credit"
+    base_url_account_intra_transfer = "/transactions/intra-transfer"
+
+
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
         self.client_id = client_id
@@ -182,6 +187,38 @@ class ZetaService(object):
                         **kwargs) -> Dict:
         response = self.request.post(url=urljoin(self.base_url,
                                                 self.base_url_update_account.format(account_id=account_id)),
+                                    headers=self.base_headers,
+                                    json=kwargs)
+        if response.status_code == 200:
+            return (None, response.json())
+        else:
+            return (response.status_code, response.json())
+
+
+    def account_debit(self, **kwargs) -> Dict:
+        response = self.request.post(url=urljoin(self.base_url,self.base_url_account_debit),
+                                    headers=self.base_headers,
+                                    json=kwargs)
+        if response.status_code == 200:
+            return (None, response.json())
+        else:
+            return (response.status_code, response.json())
+    
+
+    def account_credit(self,**kwargs) -> Dict:
+        response = self.request.post(url=urljoin(self.base_url,
+                                                self.base_url_account_credit),
+                                    headers=self.base_headers,
+                                    json=kwargs)
+        if response.status_code == 200:
+            return (None, response.json())
+        else:
+            return (response.status_code, response.json())
+
+    
+    def account_transfer(self,**kwargs) -> Dict:
+        response = self.request.post(url=urljoin(self.base_url,
+                                                self.base_url_account_intra_transfer),
                                     headers=self.base_headers,
                                     json=kwargs)
         if response.status_code == 200:

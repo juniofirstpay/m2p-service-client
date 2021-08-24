@@ -3,7 +3,8 @@ from contextlib import contextmanager
 from .schema import (CreateAccountSchema, 
                     CreateAccountHolderSchema, 
                     CreateResourceSchema, UpdateFormFactorStatusSchema,
-                    UpdateResourceStatusSchema)
+                    UpdateResourceStatusSchema, AccountCreditSchema,
+                    AccountDebitSchema, AccountTransferSchema)
 from .service import ZetaService
 
 
@@ -132,4 +133,42 @@ class ZetaMicroClient(object):
         }
         valid_data = UpdateFormFactorStatusSchema().load(data)
         response = self.update_form_factor(resource_id, form_factor_id, **valid_data)
+        return response
+
+
+    def debit_account(self, account_id: str, amount: int, remarks: str, attributes: dict):
+
+        data = {
+            'debit_account_id': account_id,
+            'amount': amount,
+            'remarks': remarks,
+            'attributes': attributes
+        }
+        valid_data = AccountDebitSchema().load(data)
+        response = self.zeta_service.account_debit(**valid_data)
+        return response
+
+    def credit_account(self, account_id: str, amount: int, remarks: str, attributes: dict):
+
+        data = {
+            'credit_account_id': account_id,
+            'amount': amount,
+            'remarks': remarks,
+            'attributes': attributes
+        }
+        valid_data = AccountCreditSchema().load(data)
+        response = self.zeta_service.account_credit(**valid_data)
+        return response
+
+    def account_transfer(self, debit_account_id: str, credit_account_id: str, amount: int, remarks: str, attributes: dict):
+
+        data = {
+            'debit_account_id': debit_account_id,
+            'credit_account_id': credit_account_id,
+            'amount': amount,
+            'remarks': remarks,
+            'attributes': attributes
+        }
+        valid_data = AccountTransferSchema().load(data)
+        response = self.zeta_service.account_transfer(**valid_data)
         return response

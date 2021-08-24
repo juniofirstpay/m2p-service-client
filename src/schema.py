@@ -37,3 +37,23 @@ class UpdateFormFactorStatusSchema(Schema):
 
 class SuspendAccountSchema(Schema):
     status = fields.Str(required=True)
+
+
+class AccountDebitSchema(Schema):
+    debit_account_id = fields.Str(required=True)
+    amount = fields.Integer(required=True)
+    remarks = fields.Str(required=True)
+    attributes = fields.Dict(keys=fields.String(), values=fields.String())
+
+class AccountCreditSchema(Schema):
+    credit_account_id = fields.Str(required=True)
+    amount = fields.Integer(required=True)
+    remarks = fields.Str(required=True)
+    attributes = fields.Dict(keys=fields.String(), values=fields.String())
+
+class AccountTransferSchema(Schema):
+    debit_account_id = fields.Str(required=True)
+    credit_account_id = fields.Str(required=True)
+    amount = fields.Integer(required=True)
+    remarks = fields.Str(required=True)
+    attributes = fields.Dict(keys=fields.String(), values=fields.String())

@@ -33,7 +33,7 @@ class TestCreateAccountHolder:
             # assert response.get('zeta_ref_id') == "ed5bedb7-9ac5-448e-9e6c-6f4c7f5eb149"
     
     def test_block_account(self):
-        account_id = "ed5bedb7-9ac5-448e-9e6c-6f4c7f5eb149"
+        account_id = ""
         status = "BLOCKED"
         with zeta_client.open() as client:
             (error, response) = client.update_account(account_id, status)
@@ -42,25 +42,25 @@ class TestCreateAccountHolder:
             assert isinstance(response, dict)
             assert response.get("status") == status
 
-    def test_enable_account(self):
-        account_id = "ed5bedb7-9ac5-448e-9e6c-6f4c7f5eb149"
-        status = "ENABLED"
-        with zeta_client.open() as client:
-            (error, response) = client.update_account(account_id, status)
-            print(error, response)
-            assert error is None
-            assert isinstance(response, dict)
-            assert response.get("status") == status
+    # def test_enable_account(self):
+    #     account_id = "ed5bedb7-9ac5-448e-9e6c-6f4c7f5eb149"
+    #     status = "ENABLED"
+    #     with zeta_client.open() as client:
+    #         (error, response) = client.update_account(account_id, status)
+    #         print(error, response)
+    #         assert error is None
+    #         assert isinstance(response, dict)
+    #         assert response.get("status") == status
 
-    def test_close_account(self):
-        account_id = "ed5bedb7-9ac5-448e-9e6c-6f4c7f5eb149"
-        status = "CLOSED"
-        with zeta_client.open() as client:
-            (error, response) = client.close_account(account_id)
-            print(error, response)
-            assert error is None
-            assert isinstance(response, dict)
-            assert response.get("status") == status
+    # def test_close_account(self):
+    #     account_id = "ed5bedb7-9ac5-448e-9e6c-6f4c7f5eb149"
+    #     status = "CLOSED"
+    #     with zeta_client.open() as client:
+    #         (error, response) = client.close_account(account_id)
+    #         print(error, response)
+    #         assert error is None
+    #         assert isinstance(response, dict)
+    #         assert response.get("status") == status
 
     # def test_get_account_holder(self):
     #     with zeta_client.open() as client:
