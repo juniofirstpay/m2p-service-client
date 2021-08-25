@@ -1,7 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-  name='zeta_micro_client',
+  name='zeta-micro-client',
+  packages=['zeta_micro_client'],
   version='0.1.0',
   author="Develper Junio",
   author_email='developer@junio.in',
