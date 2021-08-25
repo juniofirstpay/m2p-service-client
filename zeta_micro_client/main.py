@@ -18,6 +18,7 @@ class ZetaMicroClient(object):
         try:
             self.zeta_service.open()
             yield self
+            return self
         finally:
             self.zeta_service.close()
     
