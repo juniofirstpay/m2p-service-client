@@ -172,3 +172,15 @@ class ZetaMicroClient(object):
         valid_data = AccountTransferSchema().load(data)
         response = self.zeta_service.account_transfer(**valid_data)
         return response
+
+    def reverse_txn(self, txn_id: str):
+        response = self.zeta_service.reverse_txn(txn_id=txn_id)
+        return response
+
+    def get_balance(self, account_id: str):
+        response = self.zeta_service.get_balance(account_id=account_id)
+        return response
+    
+    def get_balance_accounts(self, account_holder_id: str):
+        response = self.zeta_service.get_balance_accounts(account_holder_id=account_holder_id)
+        return response

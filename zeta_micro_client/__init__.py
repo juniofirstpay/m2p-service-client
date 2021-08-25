@@ -1,6 +1,6 @@
-from src.main import ZetaMicroClient
-from src.service import ZetaService
-from src.env import __config
+from .main import ZetaMicroClient
+from .service import ZetaService
+from .env import __config
 
 
 zeta_service = ZetaService(__config.get('endpoint'), 

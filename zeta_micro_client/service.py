@@ -1,6 +1,6 @@
 import requests
 from urllib.parse import urljoin
-from typing import List, Dict
+from typing import List, Dict, Tuple, Optional
 
 
 class ZetaService(object):
@@ -14,6 +14,9 @@ class ZetaService(object):
 
     base_url_create_account='/account/create'
     base_url_get_account='/account/{account_id}/details'
+    
+    base_url_get_account_balance='/account/{account_id}/balance'
+    base_url_get_account_holder_balance='/account/account-holder/{account_holder_id}/balance'
 
     base_url_create_resource='/payment-instrument/create'    
     base_url_get_resource='/payment-instrument/{resource_id}'
@@ -26,6 +29,7 @@ class ZetaService(object):
     base_url_account_debit = "/transactions/debit"
     base_url_account_credit = "/transactions/credit"
     base_url_account_intra_transfer = "/transactions/intra-transfer"
+    base_url_txn_reversal = "/transactions/{txn_id}/reversal"
 
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
@@ -226,3 +230,29 @@ class ZetaService(object):
         else:
             return (response.status_code, response.json())
         
+    def reverse_txn(self, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.post(url=urljoin(self.base_url,
+                                                self.base_url_txn_reversal.format(txn_id=kwargs.get('txn_id'))),
+                                                headers=self.base_headers)
+        if response.status_code == 200:
+            return (None, response.json())
+        else:
+            return (response.status_code, response.json())
+    
+    def get_balance(self, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.post(url=urljoin(self.base_url,
+                                                self.base_url_get_account_balance.format(account_id=kwargs.get('account_id'))),
+                                                headers=self.base_headers)
+        if response.status_code == 200:
+            return (None, response.json())
+        else:
+            return (response.status_code, response.json())
+    
+    def get_balance_accounts(self, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.post(url=urljoin(self.base_url,
+                                                self.base_url_get_account_holder_balance.format(account_holder_id=kwargs.get('account_holder_id'))),
+                                                headers=self.base_headers)
+        if response.status_code == 200:
+            return (None, response.json())
+        else:
+            return (response.status_code, response.json())
