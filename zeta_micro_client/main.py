@@ -22,7 +22,10 @@ class ZetaMicroClient(object):
         finally:
             self.zeta_service.close()
     
-    def close(self):
+    def start(self):
+        self.zeta_service.open()
+    
+    def finish(self):
         self.zeta_service.close()
        
 
