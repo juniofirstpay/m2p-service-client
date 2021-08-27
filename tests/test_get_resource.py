@@ -4,4 +4,4 @@ from zeta_micro_client import zeta_client
 def test_get_resource():
     with zeta_client.open() as client:
         error, response = client.get_resource(
-            "30608488-f5c0-4f5f-b4f4-676d01f38913")
+            "cd2a6213-e7ce-4682-a3db-73e745e57f86")
