@@ -119,8 +119,6 @@ class ZetaService(object):
                 resource_id=resource_id)),
             headers=self.base_headers
         )
-        print(response.status_code)
-        print(response.text)
         return self.process_response(response)
 
     def create_resource(self, *args, **kwargs) -> Dict:
