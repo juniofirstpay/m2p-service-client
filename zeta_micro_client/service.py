@@ -18,9 +18,9 @@ class ZetaService(object):
     base_url_get_account_balance='/account/{account_id}/balance'
     base_url_get_account_holder_balance='/account/account-holder/{account_holder_id}/balance'
 
-    base_url_create_resource='/payment-instrument/create'    
-    base_url_get_resource='/payment-instrument/{resource_id}'
-    base_url_resource_id='/payment-instrument/{resource_id}/status'
+    base_url_create_resource='account/payment-instrument/create'    
+    base_url_get_resource='account/payment-instrument/{resource_id}'
+    base_url_resource_id='account/payment-instrument/{resource_id}/status'
 
     base_url_form_factor_id='/payment-instrument/{resource_id}/form-factors/{form_factor_id}'
 
