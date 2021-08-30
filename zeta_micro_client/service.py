@@ -143,7 +143,7 @@ class ZetaService(object):
     #         return (response.status_code, response.json())
 
     def update_resource_status(self, resource_id: str, *args, **kwargs) -> Dict:
-        response = self.request.put(
+        response = self.request.post(
             url=urljoin(self.base_url,
                         self.base_url_resource_id_status.format(resource_id=resource_id)),
             headers=self.base_headers,
@@ -152,7 +152,7 @@ class ZetaService(object):
         return self.process_response(response)
 
     def delete_resource_status(self, resource_id: str, *args, **kwargs) -> Dict:
-        response = self.request.put(
+        response = self.request.post(
             url=urljoin(self.base_url,
                         self.base_url_resource_id_delete.format(resource_id=resource_id)),
             headers=self.base_headers,
