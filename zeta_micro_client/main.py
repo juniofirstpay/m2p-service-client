@@ -2,7 +2,7 @@ from typing import ContextManager, Dict, List, Tuple, Optional
 from contextlib import contextmanager
 from .schema import (CreateAccountSchema,
                      CreateAccountHolderSchema,
-                     CreateResourceSchema, UpdateFormFactorStatusSchema,
+                     CreateResourceSchema, DeleteResourceStatusSchema, UpdateFormFactorStatusSchema,
                      UpdateResourceStatusSchema, AccountCreditSchema,
                      AccountDebitSchema, AccountTransferSchema)
 from .service import ZetaService
@@ -128,10 +128,9 @@ class ZetaMicroClient(object):
                         resource_id: str,
                         description: str) -> Dict:
         data = {
-            'status': "DELETED",
-            'description': description
+            'status': "DELETED"
         }
-        valid_data = UpdateResourceStatusSchema().load(data)
+        valid_data = DeleteResourceStatusSchema().load(data)
         response = self.zeta_service.delete_resource_status(
             resource_id, **valid_data)
         return response
