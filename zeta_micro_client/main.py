@@ -124,6 +124,18 @@ class ZetaMicroClient(object):
             resource_id, **valid_data)
         return response
 
+    def delete_resource(self,
+                        resource_id: str,
+                        description: str) -> Dict:
+        data = {
+            'status': "DELETED",
+            'description': description
+        }
+        valid_data = UpdateResourceStatusSchema().load(data)
+        response = self.zeta_service.delete_resource_status(
+            resource_id, **valid_data)
+        return response
+
     def update_form_factor(self,
                            resource_id: str,
                            form_factor_id: str,

@@ -22,7 +22,8 @@ class ZetaService(object):
 
     base_url_create_resource = 'account/payment-instrument/create'
     base_url_get_resource = 'account/payment-instrument/{resource_id}'
-    base_url_resource_id = 'account/payment-instrument/{resource_id}/status'
+    base_url_resource_id_status = 'account/payment-instrument/{resource_id}/status'
+    base_url_resource_id_delete = 'account/payment-instrument/{resource_id}/delete'
 
     base_url_form_factor_id = '/payment-instrument/{resource_id}/form-factors/{form_factor_id}'
 
@@ -144,7 +145,16 @@ class ZetaService(object):
     def update_resource_status(self, resource_id: str, *args, **kwargs) -> Dict:
         response = self.request.put(
             url=urljoin(self.base_url,
-                        self.base_url_resource_id.format(resource_id=resource_id)),
+                        self.base_url_resource_id_status.format(resource_id=resource_id)),
+            headers=self.base_headers,
+            json=kwargs
+        )
+        return self.process_response(response)
+
+    def delete_resource_status(self, resource_id: str, *args, **kwargs) -> Dict:
+        response = self.request.put(
+            url=urljoin(self.base_url,
+                        self.base_url_resource_id_delete.format(resource_id=resource_id)),
             headers=self.base_headers,
             json=kwargs
         )
