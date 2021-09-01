@@ -209,7 +209,7 @@ class ZetaService(object):
         return self.process_response(response)
 
     def get_balance(self, **kwargs) -> Tuple[Optional[int], Dict]:
-        response = self.request.post(url=urljoin(self.base_url,
+        response = self.request.get(url=urljoin(self.base_url,
                                                  self.base_url_get_account_balance.format(account_id=kwargs.get('account_id'))),
                                      headers=self.base_headers)
         return self.process_response(response)
