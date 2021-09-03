@@ -145,7 +145,7 @@ class ZetaMicroClient(object):
             'description': description
         }
         valid_data = UpdateFormFactorStatusSchema().load(data)
-        response = self.update_form_factor(
+        response = self.zeta_service.update_form_factor(
             resource_id, form_factor_id, **valid_data)
         return response
 
