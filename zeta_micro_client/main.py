@@ -24,9 +24,11 @@ class ZetaMicroClient(object):
 
     def start(self):
         self.zeta_service.open()
+        return self
 
     def finish(self):
         self.zeta_service.close()
+        return self
 
     # Makes a call to zeta micro service and issues account holder
     def create_account_holder(self,
