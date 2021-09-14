@@ -6,8 +6,9 @@ __variant = None
 __config = None
 try:
     env = load(open('config.yaml'), Loader=loader)
+    env = env.get("zeta_client")
     __config = env.get('service')
-    __variant= env.get('variant')
+    __variant = env.get('variant')
 
     if __config is None:
         warn("Config Object Not Found")
@@ -17,11 +18,10 @@ try:
         warn("Zeta Client Id Configured")
     if __config.get('clientsecret') is None:
         warn("Zeta Client Secret Configured")
-    
+
     if __variant is None:
         warn("Without variant no call will be made")
 
-    
+
 except Exception as e:
     print(e)
-    
