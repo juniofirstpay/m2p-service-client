@@ -19,6 +19,7 @@ class ZetaService(object):
 
     base_url_get_account_balance = '/account/{account_id}/balance'
     base_url_get_account_holder_balance = '/account/account-holder/{account_holder_id}/balance'
+    base_url_get_account_holder_token = '/account-holder/{account_holder_id}/token'
 
     base_url_create_resource = 'account/payment-instrument/create'
     base_url_get_resource = 'account/payment-instrument/{resource_id}'
@@ -210,12 +211,17 @@ class ZetaService(object):
 
     def get_balance(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.get(url=urljoin(self.base_url,
-                                                 self.base_url_get_account_balance.format(account_id=kwargs.get('account_id'))),
-                                     headers=self.base_headers)
+                                                self.base_url_get_account_balance.format(account_id=kwargs.get('account_id'))),
+                                    headers=self.base_headers)
         return self.process_response(response)
 
     def get_balance_accounts(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.post(url=urljoin(self.base_url,
                                                  self.base_url_get_account_holder_balance.format(account_holder_id=kwargs.get('account_holder_id'))),
                                      headers=self.base_headers)
+        return self.process_response(response)
+
+    def get_account_holder_token(self, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(url=urljoin(self.base_url, self.base_url_get_account_holder_token.format(
+            account_holder_id=kwargs.get("account_holder_id"))))
         return self.process_response(response)

@@ -200,3 +200,8 @@ class ZetaMicroClient(object):
         response = self.zeta_service.get_balance_accounts(
             account_holder_id=account_holder_id)
         return response
+
+    def get_account_holder_token(self, account_holder_id: str):
+        response = self.zeta_service.get_account_holder_token(
+            account_holder_id=account_holder_id)
+        return response
