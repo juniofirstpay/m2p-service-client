@@ -19,7 +19,7 @@ class ZetaService(object):
 
     base_url_get_account_balance = '/account/{account_id}/balance'
     base_url_get_account_holder_balance = '/account/account-holder/{account_holder_id}/balance'
-    base_url_get_account_holder_token = '/account-holder/{account_holder_id}/token'
+    base_url_get_account_holder_token = '   /account-holder/{account_holder_id}/token'
 
     base_url_create_resource = 'account/payment-instrument/create'
     base_url_get_resource = 'account/payment-instrument/{resource_id}'
@@ -34,6 +34,8 @@ class ZetaService(object):
     base_url_account_credit = "/transactions/credit"
     base_url_account_intra_transfer = "/transactions/intra-transfer"
     base_url_txn_reversal = "/transactions/{txn_id}/reversal"
+
+    base_url_get_txns = "/account/payment-instrument/{resource_id}/transactions"
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
@@ -224,4 +226,10 @@ class ZetaService(object):
     def get_account_holder_token(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.get(url=urljoin(self.base_url, self.base_url_get_account_holder_token.format(
             account_holder_id=kwargs.get("account_holder_id"))))
+        return self.process_response(response)
+
+    def fetch_resource_transactions(self, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(url=urljoin(self.base_url,
+                                                self.base_url_get_txns.format(resource_id=kwargs.get("resource_id"))))
+
         return self.process_response(response)

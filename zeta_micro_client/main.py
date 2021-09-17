@@ -205,3 +205,8 @@ class ZetaMicroClient(object):
         response = self.zeta_service.get_account_holder_token(
             account_holder_id=account_holder_id)
         return response
+
+    def get_resource_txns(self, resource_id: str):
+        response = self.zeta_service.fetch_resource_transactions(
+            resource_id=resource_id)
+        return response
