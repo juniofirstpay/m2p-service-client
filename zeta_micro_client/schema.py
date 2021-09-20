@@ -11,7 +11,7 @@ class CreateAccountHolderSchema(Schema):
     gender = fields.Str(
         required=True, validate=validate.OneOf(["Male", "Female"]))
     kyc_type = fields.Str(required=True, validate=validate.OneOf(
-        ["VOTER_ID", "PAN", "PASSPORT", "DRIVING_LICENCE"]))
+        ["VOTER_ID", "PAN", "PASSPORT", "DRIVING_LICENSE"]))
     kyc_value = fields.Str(required=True, validate=validate.Length(min=5))
     phone_number = fields.Str(
         required=True, validate=validate.Length(equal=10))
