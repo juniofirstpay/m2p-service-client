@@ -19,7 +19,7 @@ class ZetaService(object):
 
     base_url_get_account_balance = '/account/{account_id}/balance'
     base_url_get_account_holder_balance = '/account/account-holder/{account_holder_id}/balance'
-    base_url_get_account_holder_token = '   /account-holder/{account_holder_id}/token'
+    base_url_get_account_holder_token = '/account-holder/{account_holder_id}/token'
 
     base_url_create_resource = 'account/payment-instrument/create'
     base_url_get_resource = 'account/payment-instrument/{resource_id}'
