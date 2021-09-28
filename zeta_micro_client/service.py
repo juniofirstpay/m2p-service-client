@@ -35,7 +35,10 @@ class ZetaService(object):
     base_url_account_intra_transfer = "/transactions/intra-transfer"
     base_url_txn_reversal = "/transactions/{txn_id}/reversal"
 
-    base_url_get_txns = "/account/payment-instrument/{resource_id}/transactions"
+    base_url_create_phone_number = "/account/{account_id}/payment-instrument/phone-number/create"
+    base_url_delete_phone_number = "/account/{account_id}/payment-instrument/phone-number/delete"
+
+    base_url_get_txns = "/card/resource/{resource_id}/transactions"
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
@@ -232,4 +235,28 @@ class ZetaService(object):
         response = self.request.get(url=urljoin(self.base_url,
                                                 self.base_url_get_txns.format(resource_id=kwargs.get("resource_id"))))
 
+        return self.process_response(response)
+
+    def create_phone_number(self, account_id, phone_number) -> Tuple[Optional[int], Dict]:
+        req_body = {
+            "phone_number": phone_number
+        }
+        response = self.request.post(
+            url=urljoin(
+                self.base_url,
+                self.base_url_create_phone_number.format(account_holder_id=account_id)
+            ),
+            json=req_body,
+            headers=self.base_headers)
+        return self.process_response(response)
+
+    def delete_phone_number(self, account_id) -> Tuple[Optional[int], Dict]:
+        req_body = {}
+        response = self.request.post(
+            url=urljoin(
+                self.base_url,
+                self.base_url_delete_phone_number.format(account_holder_id=account_id)
+            ),
+            json=req_body,
+            headers=self.base_headers)
         return self.process_response(response)

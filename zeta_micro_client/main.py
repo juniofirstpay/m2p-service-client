@@ -210,3 +210,13 @@ class ZetaMicroClient(object):
         response = self.zeta_service.fetch_resource_transactions(
             resource_id=resource_id)
         return response
+
+    def create_phone_number(self, account_id: str, phone_number: str):
+        response = self.zeta_service.create_phone_number(
+            account_id=account_id, phone_number=phone_number)
+        return response
+
+    def delete_phone_number(self, account_id: str):
+        response = self.zeta_service.delete_phone_number(
+            account_id=account_id)
+        return response
