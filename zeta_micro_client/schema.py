@@ -26,8 +26,8 @@ class CreateAccountSchema(Schema):
 
 class CreateResourceSchema(Schema):
     account_id = fields.Str(required=True, validate=validate.Length(equal=36))
-    mobile_number = fields.Str(
-        required=True, validate=validate.Length(equal=10))
+    phone_number = fields.Str(
+        required=True, validate=validate.Length(equal=13))
 
 
 class UpdateResourceStatusSchema(Schema):
