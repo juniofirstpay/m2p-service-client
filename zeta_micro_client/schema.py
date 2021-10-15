@@ -56,6 +56,7 @@ class AccountDebitSchema(Schema):
     amount = fields.Integer(required=True)
     remarks = fields.Str(required=True)
     attributes = fields.Dict(keys=fields.String(), values=fields.String())
+    txn_id = fields.Str(required=True)
 
 
 class AccountCreditSchema(Schema):
@@ -63,6 +64,7 @@ class AccountCreditSchema(Schema):
     amount = fields.Integer(required=True)
     remarks = fields.Str(required=True)
     attributes = fields.Dict(keys=fields.String(), values=fields.String())
+    txn_id = fields.Str(required=True)
 
 
 class AccountTransferSchema(Schema):
@@ -71,3 +73,4 @@ class AccountTransferSchema(Schema):
     amount = fields.Integer(required=True)
     remarks = fields.Str(required=True)
     attributes = fields.Dict(keys=fields.String(), values=fields.String())
+    txn_id = fields.Str(required=True)

@@ -149,38 +149,41 @@ class ZetaMicroClient(object):
             resource_id, form_factor_id, **valid_data)
         return response
 
-    def debit_account(self, account_id: str, amount: int, remarks: str, attributes: dict):
+    def debit_account(self, txn_id: str, account_id: str, amount: int, remarks: str, attributes: dict):
 
         data = {
             'debit_account_id': account_id,
             'amount': amount,
             'remarks': remarks,
-            'attributes': attributes
+            'attributes': attributes,
+            'txn_id': txn_id
         }
         valid_data = AccountDebitSchema().load(data)
         response = self.zeta_service.account_debit(**valid_data)
         return response
 
-    def credit_account(self, account_id: str, amount: int, remarks: str, attributes: dict):
+    def credit_account(self, txn_id: str, account_id: str, amount: int, remarks: str, attributes: dict,):
 
         data = {
             'credit_account_id': account_id,
             'amount': amount,
             'remarks': remarks,
-            'attributes': attributes
+            'attributes': attributes,
+            'txn_id': txn_id
         }
         valid_data = AccountCreditSchema().load(data)
         response = self.zeta_service.account_credit(**valid_data)
         return response
 
-    def account_transfer(self, debit_account_id: str, credit_account_id: str, amount: int, remarks: str, attributes: dict):
+    def account_transfer(self, txn_id: str, debit_account_id: str, credit_account_id: str, amount: int, remarks: str, attributes: dict):
 
         data = {
             'debit_account_id': debit_account_id,
             'credit_account_id': credit_account_id,
             'amount': amount,
             'remarks': remarks,
-            'attributes': attributes
+            'attributes': attributes,
+            'txn_id': txn_id
         }
         valid_data = AccountTransferSchema().load(data)
         response = self.zeta_service.account_transfer(**valid_data)
