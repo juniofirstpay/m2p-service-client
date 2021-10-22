@@ -38,6 +38,12 @@ class ZetaService(object):
     base_url_create_phone_number = "/account/{account_id}/payment-instrument/phone-number/create"
     base_url_delete_phone_number = "/account/{account_id}/payment-instrument/phone-number/delete"
 
+    base_url_create_card = "/account/{account_id}/payment-instrument/card/create"
+    base_url_delete_card = "/account/{account_id}/payment-instrument/card/delete"
+
+    base_url_get_card_status = "/card/{card_id}/status"
+    base_url_update_card_status = "/card/{card_id}/status"
+
     base_url_get_txns = "/card/resource/{resource_id}/transactions"
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
@@ -256,6 +262,53 @@ class ZetaService(object):
             url=urljoin(
                 self.base_url,
                 self.base_url_delete_phone_number.format(account_holder_id=account_id)
+            ),
+            json=req_body,
+            headers=self.base_headers)
+        return self.process_response(response)
+
+    def create_card(self, account_id, card_id) -> Tuple[Optional[int], Dict]:
+        req_body = {
+            "card_id": card_id
+        }
+        response = self.request.post(
+            url=urljoin(
+                self.base_url,
+                self.base_url_create_card.format(account_holder_id=account_id)
+            ),
+            json=req_body,
+            headers=self.base_headers)
+        return self.process_response(response)
+
+    def delete_card(self, account_id) -> Tuple[Optional[int], Dict]:
+        req_body = {}
+        response = self.request.post(
+            url=urljoin(
+                self.base_url,
+                self.base_url_delete_card.format(account_holder_id=account_id)
+            ),
+            json=req_body,
+            headers=self.base_headers)
+        return self.process_response(response)
+
+    def get_card_status(self, card_id) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_get_card_status.format(card_id=card_id)
+            ),
+            headers=self.base_headers)
+        return self.process_response(response)
+
+    def update_card_status(self, card_id, status, reason=None) -> Tuple[Optional[int], Dict]:
+        req_body = {
+            "card_status": status,
+            "reason": reason
+        }
+        response = self.request.post(
+            url=urljoin(
+                self.base_url,
+                self.base_url_update_card_status.format(card_id=card_id)
             ),
             json=req_body,
             headers=self.base_headers)
