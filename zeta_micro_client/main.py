@@ -239,11 +239,10 @@ class ZetaMicroClient(object):
             card_id=card_id)
         return response
 
-    def update_card_status(self, card_id, status, reason=None):
+    def update_card_status(self, card_id, status):
         response = self.zeta_service.update_card_status(
             card_id=card_id,
-            status=status,
-            reason=reason
+            status=status
         )
         return response
 

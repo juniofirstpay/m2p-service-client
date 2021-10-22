@@ -300,10 +300,9 @@ class ZetaService(object):
             headers=self.base_headers)
         return self.process_response(response)
 
-    def update_card_status(self, card_id, status, reason=None) -> Tuple[Optional[int], Dict]:
+    def update_card_status(self, card_id, status) -> Tuple[Optional[int], Dict]:
         req_body = {
-            "card_status": status,
-            "reason": reason
+            "card_status": status
         }
         response = self.request.post(
             url=urljoin(
