@@ -1,5 +1,7 @@
 from typing import ContextManager, Dict, List, Tuple, Optional
 from contextlib import contextmanager
+
+from marshmallow.utils import resolve_field_instance
 from .schema import (CreateAccountSchema,
                      CreateAccountHolderSchema,
                      CreateResourceSchema, DeleteResourceStatusSchema, UpdateFormFactorStatusSchema,
@@ -149,38 +151,41 @@ class ZetaMicroClient(object):
             resource_id, form_factor_id, **valid_data)
         return response
 
-    def debit_account(self, account_id: str, amount: int, remarks: str, attributes: dict):
+    def debit_account(self, txn_id: str, account_id: str, amount: int, remarks: str, attributes: dict):
 
         data = {
             'debit_account_id': account_id,
             'amount': amount,
             'remarks': remarks,
-            'attributes': attributes
+            'attributes': attributes,
+            'txn_id': txn_id
         }
         valid_data = AccountDebitSchema().load(data)
         response = self.zeta_service.account_debit(**valid_data)
         return response
 
-    def credit_account(self, account_id: str, amount: int, remarks: str, attributes: dict):
+    def credit_account(self, txn_id: str, account_id: str, amount: int, remarks: str, attributes: dict,):
 
         data = {
             'credit_account_id': account_id,
             'amount': amount,
             'remarks': remarks,
-            'attributes': attributes
+            'attributes': attributes,
+            'txn_id': txn_id
         }
         valid_data = AccountCreditSchema().load(data)
         response = self.zeta_service.account_credit(**valid_data)
         return response
 
-    def account_transfer(self, debit_account_id: str, credit_account_id: str, amount: int, remarks: str, attributes: dict):
+    def account_transfer(self, txn_id: str, debit_account_id: str, credit_account_id: str, amount: int, remarks: str, attributes: dict):
 
         data = {
             'debit_account_id': debit_account_id,
             'credit_account_id': credit_account_id,
             'amount': amount,
             'remarks': remarks,
-            'attributes': attributes
+            'attributes': attributes,
+            'txn_id': txn_id
         }
         valid_data = AccountTransferSchema().load(data)
         response = self.zeta_service.account_transfer(**valid_data)
@@ -223,3 +228,71 @@ class ZetaMicroClient(object):
         response = self.zeta_service.get_account_transactions(
             account_id=account_id, params=params)
         return response
+
+    def create_card(self, account_id: str, card: str):
+        response = self.zeta_service.create_card(
+            account_id=account_id, card=card)
+        return response
+
+    def delete_card(self, account_id: str):
+        response = self.zeta_service.delete_card(
+            account_id=account_id)
+        return response
+
+    def get_card_status(self, card_id):
+        response = self.zeta_service.get_card_status(
+            card_id=card_id)
+        return response
+
+    def update_card_status(self, card_id, status):
+        response = self.zeta_service.update_card_status(
+            card_id=card_id,
+            status=status
+        )
+        return response
+
+    # def reissue_card_form_factor(
+    #     self,
+    #     child_account_id: str,
+    #     parent_account_id: str,
+    #     child_phone_number: str,
+    #     resource_id: str
+    # ):
+    #     # Fetch old account
+    #     error, old_account = self.get_account(child_account_id)
+    #     print("error, old_account", error, old_account)
+    #     if error:
+    #         return error, "Child account not found."
+
+    #     # Fetch old balance
+    #     error, old_balance = self.get_balance(old_account["zeta_ref_id"])
+    #     print("error, old_balance", error, old_balance)
+    #     if error:
+    #         return error, "Balance fetch error."
+
+    #     # Get resource
+    #     error, old_resource = self.get_resource(resource_id)
+    #     print("error, old_resource", error, old_resource)
+    #     if error:
+    #         return error, "Old resource not found."
+
+    #     if old_resource["account_id"] != child_account_id:
+    #         return 400, "Resource mismatch error."
+
+    #     # Delete old card
+    #     # error, old_card = self.delete_card(child_account_id)
+    #     # print("error, old_card", error, old_card)
+    #     # if error:
+    #     #     return error, "Old card deletion error."
+
+    #     # Delete old number
+    #     # error, old_phone_number = self.delete_phone_number(child_account_id)
+    #     # print("error, old_phone_number", error, old_phone_number)
+    #     # if error:
+    #     #     return error, "Old phone number deletion error."
+
+    #     # Create new account
+    #     error, new_account = self.create_account(
+    #         old_account["owner_ach_id"],
+    #         f'{old_account["name"]}_1'
+    #     )

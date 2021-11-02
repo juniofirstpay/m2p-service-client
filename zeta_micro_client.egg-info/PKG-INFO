@@ -1,4 +1,4 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: zeta-micro-client
 Version: 0.3.4
 Summary: Zeta Microservice Service Client
@@ -6,7 +6,9 @@ Home-page: UNKNOWN
 Author: Develper Junio
 Author-email: developer@junio.in
 License: MIT license
-Description: UNKNOWN
 Platform: UNKNOWN
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3.7
+
+UNKNOWN
+
