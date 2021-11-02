@@ -271,7 +271,6 @@ class ZetaService(object):
         return self.process_response(response)
 
     def get_account_transactions(self, account_id: str, params: Optional[Dict] = None) -> Tuple[Optional[int], Union[List, Dict]]:
-
         response = self.request.get(
             url=urljoin(
                 self.base_url,
@@ -280,6 +279,7 @@ class ZetaService(object):
             ),
             headers=self.base_headers,
         )
+        return self.process_response(response)
 
     def create_card(self, account_id, card_id) -> Tuple[Optional[int], Dict]:
         req_body = {
