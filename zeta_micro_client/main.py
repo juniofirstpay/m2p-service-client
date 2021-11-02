@@ -218,3 +218,8 @@ class ZetaMicroClient(object):
         response = self.zeta_service.delete_phone_number(
             account_id=account_id)
         return response
+
+    def get_account_transactions(self, account_id: str, params: Optional[Dict] = None):
+        response = self.zeta_service.get_account_transactions(
+            account_id=account_id, params=params)
+        return response

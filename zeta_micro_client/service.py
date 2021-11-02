@@ -1,6 +1,6 @@
 import requests
 from urllib.parse import urljoin
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Tuple, Optional, Union
 
 from requests.models import Response
 
@@ -25,6 +25,7 @@ class ZetaService(object):
     base_url_get_resource = 'account/payment-instrument/{resource_id}'
     base_url_resource_id_status = 'account/payment-instrument/{resource_id}/status'
     base_url_resource_id_delete = 'account/payment-instrument/{resource_id}/delete'
+    base_url_account_transactions = "v2/account/{account_id}/transactions"
 
     base_url_form_factor_id = '/payment-instrument/{resource_id}/form-factors/{form_factor_id}'
 
@@ -244,7 +245,8 @@ class ZetaService(object):
         response = self.request.post(
             url=urljoin(
                 self.base_url,
-                self.base_url_create_phone_number.format(account_holder_id=account_id)
+                self.base_url_create_phone_number.format(
+                    account_holder_id=account_id)
             ),
             json=req_body,
             headers=self.base_headers)
@@ -255,8 +257,21 @@ class ZetaService(object):
         response = self.request.post(
             url=urljoin(
                 self.base_url,
-                self.base_url_delete_phone_number.format(account_holder_id=account_id)
+                self.base_url_delete_phone_number.format(
+                    account_holder_id=account_id)
             ),
             json=req_body,
             headers=self.base_headers)
+        return self.process_response(response)
+
+    def get_account_transactions(self, account_id: str, params: Optional[Dict] = None) -> Tuple[Optional[int], Union[List, Dict]]:
+
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_account_transactions.format(
+                    account_id=account_id)
+            ),
+            headers=self.base_headers,
+        )
         return self.process_response(response)
