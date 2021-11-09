@@ -2,6 +2,7 @@ import requests
 from urllib.parse import urljoin
 from typing import List, Dict, Tuple, Optional, Union
 
+import urllib
 from requests.models import Response
 
 
@@ -277,6 +278,20 @@ class ZetaService(object):
                 self.base_url_account_transactions.format(
                     account_id=account_id)
             ),
+            headers=self.base_headers,
+        )
+        return self.process_response(response)
+    
+    def get_account_transactions_v2(self, account_id: str, params: Optional[Dict] = None) -> Tuple[Optional[int], Union[List, Dict]]:
+        url = urljoin(
+                self.base_url,
+                self.base_url_account_transactions.format(
+                    account_id=account_id)
+            )
+        if params:
+            url = url + "?" + urllib.parse.urlencode(params)
+        response = self.request.get(
+            url=url,
             headers=self.base_headers,
         )
         return self.process_response(response)
