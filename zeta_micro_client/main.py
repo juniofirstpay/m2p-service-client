@@ -229,7 +229,7 @@ class ZetaMicroClient(object):
             account_id=account_id, params=params)
         return response
     
-    def get_account_transactions(self, account_id: str, params: Optional[Dict] = None):
+    def get_account_transactions_v2(self, account_id: str, params: Optional[Dict] = None):
         response = self.zeta_service.get_account_transactions_v2(
             account_id=account_id, params=params)
         return response
