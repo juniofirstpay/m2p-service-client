@@ -48,6 +48,8 @@ class ZetaService(object):
 
     base_url_get_txns = "/card/resource/{resource_id}/transactions"
 
+    base_url_fetch_txn_limit = "/accounts/{account_id}/fetch-limit"
+
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
         self.client_id = client_id
@@ -340,4 +342,14 @@ class ZetaService(object):
             ),
             json=req_body,
             headers=self.base_headers)
+        return self.process_response(response)
+
+    def fetch_txn_limit(self, account_id: str) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_fetch_txn_limit.format(account_id=account_id)
+            ),
+            headers=self.base_headers
+        )
         return self.process_response(response)

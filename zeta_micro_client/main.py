@@ -256,6 +256,12 @@ class ZetaMicroClient(object):
         )
         return response
 
+    def fetch_txn_limit(self, account_id: str):
+        response = self.zeta_service.fetch_txn_limit(
+            account_id=account_id
+        )
+        return response
+
     # def reissue_card_form_factor(
     #     self,
     #     child_account_id: str,
