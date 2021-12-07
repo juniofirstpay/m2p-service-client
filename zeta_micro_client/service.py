@@ -28,6 +28,8 @@ class ZetaService(object):
     base_url_resource_id_delete = 'account/payment-instrument/{resource_id}/delete'
     base_url_account_transactions = "v2/account/{account_id}/transactions"
 
+    base_url_get_resource_via_account_id = "/account/{account_id}/payment-instrument"
+
     base_url_form_factor_id = '/payment-instrument/{resource_id}/form-factors/{form_factor_id}'
 
     base_url_update_account = '/account/{account_id}/update'
@@ -95,6 +97,14 @@ class ZetaService(object):
             headers=self.base_headers
         )
         return self.process_response(response)
+    
+    def get_account_holder_via_id(self, ach_id: str):
+        response = self.request.get(
+            url=urljoin(self.base_url,
+                        self.base_url_get_account_holder.format(account_holder_id=ach_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
 
     def get_accounts(self, account_holder_id: str) -> List[Dict]:
         response = self.request.get(
@@ -126,6 +136,14 @@ class ZetaService(object):
         response = self.request.post(
             url=urljoin(self.base_url,
                         self.base_url_get_resources.format(account_holder_id=account_holder_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_resource_via_account_id(self, account_id: str, *args, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_get_resource_via_account_id.format(
+                account_id=account_id)),
             headers=self.base_headers
         )
         return self.process_response(response)
