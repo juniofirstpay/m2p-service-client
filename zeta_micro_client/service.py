@@ -278,6 +278,7 @@ class ZetaService(object):
                     account_id=account_id)
             ),
             headers=self.base_headers,
+            params=params
         )
         return self.process_response(response)
 
