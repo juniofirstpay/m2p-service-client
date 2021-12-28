@@ -62,6 +62,10 @@ class ZetaMicroClient(object):
     def get_account_holder(self, type: str, value: str):
         response = self.zeta_service.get_account_holder(type, value)
         return response
+    
+    def get_account_holder_via_id(self, ach_id: str):
+        response = self.zeta_service.get_account_holder_via_id(ach_id)
+        return response
 
     def get_accounts(self, account_holder_id: str) -> List[Dict]:
         response = self.zeta_service.get_accounts(account_holder_id)
@@ -95,6 +99,10 @@ class ZetaMicroClient(object):
 
     def get_resource(self, resource_id: str) -> Tuple[Optional[int], Dict]:
         response = self.zeta_service.get_resource(resource_id)
+        return response
+    
+    def get_resource_via_account_id(self, account_id: str) -> Tuple[Optional[int], Dict]:
+        response = self.zeta_service.get_resource_via_account_id(account_id)
         return response
 
     def create_resource(self,
@@ -228,6 +236,11 @@ class ZetaMicroClient(object):
         response = self.zeta_service.get_account_transactions(
             account_id=account_id, params=params)
         return response
+    
+    def get_account_transactions_v2(self, account_id: str, params: Optional[Dict] = None):
+        response = self.zeta_service.get_account_transactions_v2(
+            account_id=account_id, params=params)
+        return response
 
     def create_card(self, account_id: str, card: str):
         response = self.zeta_service.create_card(
@@ -248,6 +261,12 @@ class ZetaMicroClient(object):
         response = self.zeta_service.update_card_status(
             card_id=card_id,
             status=status
+        )
+        return response
+
+    def fetch_txn_limit(self, account_id: str):
+        response = self.zeta_service.fetch_txn_limit(
+            account_id=account_id
         )
         return response
 
