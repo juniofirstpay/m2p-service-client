@@ -52,6 +52,17 @@ class ZetaService(object):
 
     base_url_fetch_txn_limit = "/accounts/{account_id}/fetch-limit"
 
+
+    base_url_person_account_holder = "/person/{person_id}/account-holder"
+    base_url_person_account_holder_job = "/person/{person_id}/account-holder/job"
+    base_url_person_account = "/person/{person_id}/account"
+    base_url_person_account_job = "/person/{person_id}/account/job"
+    base_url_person_bundle = "/person/{person_id}/bundle"
+    base_url_person_bundle_job = "/person/{person_id}/bundle/job"
+
+
+
+
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
         self.client_id = client_id
@@ -370,5 +381,97 @@ class ZetaService(object):
                 self.base_url_fetch_txn_limit.format(account_id=account_id)
             ),
             headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_person_account_holder(self, person_id: "UUID"):
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_person_account_holder.format(person_id=person_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_person_account(self, person_id: "UUID"):
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_person_account.format(
+                person_id=person_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_person_bundle(self, person_id: "UUID"):
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_person_bundle.format(
+                person_id=person_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_person_account_holder_job(self, person_id: "UUID"):
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_person_account_holder_job.format(
+                person_id=person_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_person_account_job(self, person_id: "UUID"):
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_person_account_job.format(
+                person_id=person_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_person_bundle_job(self, person_id: "UUID"):
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_person_bundle_job.format(
+                person_id=person_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def create_person_account_holder_job(self, person_id: "UUID"=None, **data: dict):
+        response = self.request.post(
+            url=urljoin(self.base_url, self.base_url_person_account_holder_job.format(
+                person_id=person_id)),
+            headers=self.base_headers,
+            json={ "attributes": {
+                    "kyc": {
+                        **data,
+                        "dob": data.get('dob').strftime('%Y-%m-%d')
+                    }
+                }}
+        )
+        return self.process_response(response)
+
+    def create_person_account_job(self, person_id: "UUID" = None, **data: dict):
+        response = self.request.post(
+            url=urljoin(self.base_url, self.base_url_person_account_job.format(
+                person_id=person_id)),
+            headers=self.base_headers,
+            json={"attributes": {
+                "account_holder_id": data.get("account_holder_id"),
+                "account": {
+                    "name": data.get("name"),
+                }
+            }}
+        )
+        return self.process_response(response)
+    
+    def create_person_bundle_job(self, person_id: "UUID" = None, **data: dict):
+        response = self.request.post(
+            url=urljoin(self.base_url, self.base_url_person_bundle_job.format(
+                person_id=person_id)),
+            headers=self.base_headers,
+            json={ "attributes": {
+                "account_holder_id": data.get("account_holder_id"),
+                "account": {
+                    "name": data.get("name"),
+                },
+                "payment_instrument": {
+                    "mobile_number": data.get("mobile_number"),
+                }
+            } }
         )
         return self.process_response(response)

@@ -74,3 +74,31 @@ class AccountTransferSchema(Schema):
     remarks = fields.Str(required=True)
     attributes = fields.Dict(keys=fields.String(), values=fields.String())
     txn_id = fields.Str(required=True)
+
+
+class PersonAccountHolderSchema(Schema):
+
+    person_id = fields.UUID(required=True)
+    first_name = fields.String(required=True)
+    middle_name = fields.String(required=True)
+    last_name = fields.String(required=True)
+    dob = fields.Date(required=True)
+    gender = fields.String(required=True, validate=validate.OneOf(["Male", "Female"]))
+    mobile_number = fields.String(required=True, validate=validate.Length(10))
+    auth_type = fields.String(required=True, validate=validate.OneOf(["PAN", "DRIVING_LICENSE", "VOTER_ID", "PASSPORT"]))
+    auth_data = fields.String(required=True, min=5)
+
+
+class PersonAccountSchema(Schema):
+
+    person_id = fields.UUID(required=True)
+    account_holder_id = fields.String(required=True)
+    name = fields.String(required=True)
+
+
+class PersonBundleSchema(Schema):
+
+    person_id = fields.UUID(required=True)
+    account_holder_id = fields.String(required=True)
+    name = fields.String(required=True)
+    mobile_number = fields.String(required=True)
