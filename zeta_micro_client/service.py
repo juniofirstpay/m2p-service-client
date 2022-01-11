@@ -45,7 +45,7 @@ class ZetaService(object):
     base_url_create_card = "/account/{account_id}/payment-instrument/card/create"
     base_url_delete_card = "/account/{account_id}/payment-instrument/card/delete"
 
-    base_url_get_card = "/card/{card_id}"
+    base_url_get_card = "/card/{card_id}/resource"
     base_url_get_card_status = "/card/{card_id}/status"
     base_url_update_card_status = "/card/{card_id}/status"
 
