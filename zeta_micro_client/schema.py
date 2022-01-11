@@ -16,18 +16,21 @@ class CreateAccountHolderSchema(Schema):
     phone_number = fields.Str(
         required=True, validate=validate.Length(equal=10))
     dob = fields.Date(required=True)
+    person_id = fields.UUID(required=False)
 
 
 class CreateAccountSchema(Schema):
     account_holder_id = fields.Str(required=True)
     accounts = fields.List(fields.Str(
         required=True, validate=validate.Length(min=5)))
+    person_id = fields.UUID(required=False)
 
 
 class CreateResourceSchema(Schema):
     account_id = fields.Str(required=True, validate=validate.Length(equal=36))
     phone_number = fields.Str(
         required=True, validate=validate.Length(equal=13))
+    person_id = fields.UUID(required=False)
 
 
 class UpdateResourceStatusSchema(Schema):

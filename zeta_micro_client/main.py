@@ -1,10 +1,11 @@
+import uuid
 from typing import ContextManager, Dict, List, Tuple, Optional
 from contextlib import contextmanager
 
 from marshmallow.utils import resolve_field_instance
 from .schema import (CreateAccountSchema,
                      CreateAccountHolderSchema,
-                     CreateResourceSchema, DeleteResourceStatusSchema, PersonAccountHolderSchema, PersonAccountSchema, PersonBundleSchema, UpdateFormFactorStatusSchema,
+                     CreateResourceSchema, DeleteResourceStatusSchema, UpdateFormFactorStatusSchema,
                      UpdateResourceStatusSchema, AccountCreditSchema,
                      AccountDebitSchema, AccountTransferSchema)
 from .service import ZetaService
@@ -41,7 +42,8 @@ class ZetaMicroClient(object):
                               gender: str,
                               kyc_type: str,
                               kyc_value: str,
-                              phone_number: str) -> Dict:
+                              phone_number: str,
+                              person_id: uuid=None) -> Dict:
         data = {
             'first_name': first_name,
             'middle_name': middle_name,
@@ -53,6 +55,8 @@ class ZetaMicroClient(object):
             'phone_number': phone_number
         }
         valid_data = CreateAccountHolderSchema().load(data)
+        if valid_data.get('person_id'):
+            valid_data['person_id'] = str(valid_data.get('person_id'))
         dob = valid_data.pop('dob')
         phone_number = '+91' + valid_data.pop('phone_number')
         response = self.zeta_service.create_account_holder(
@@ -82,12 +86,15 @@ class ZetaMicroClient(object):
     # Make the
     def create_account(self,
                        account_holder_id: str,
-                       account_name: str) -> Dict:
+                       account_name: str,
+                       person_id: uuid=None) -> Dict:
         data = {
             'account_holder_id': account_holder_id,
             'accounts': [account_name]
         }
         valid_data = CreateAccountSchema().load(data)
+        if valid_data.get('person_id'):
+            valid_data['person_id'] = str(valid_data.get('person_id'))
         (error, response) = self.zeta_service.create_account(**valid_data)
         if error:
             return error, response
@@ -107,13 +114,16 @@ class ZetaMicroClient(object):
 
     def create_resource(self,
                         account_id: str,
-                        mobile_number: str) -> Dict:
+                        mobile_number: str,
+                        person_id = None) -> Dict:
 
         data = {
             'account_id': account_id,
             'phone_number': mobile_number
         }
         valid_data = CreateResourceSchema().load(data)
+        if valid_data.get('person_id'):
+            valid_data['person_id'] = str(valid_data.get('person_id'))
         response = self.zeta_service.create_resource(**valid_data)
         return response
 
@@ -318,67 +328,3 @@ class ZetaMicroClient(object):
     #         old_account["owner_ach_id"],
     #         f'{old_account["name"]}_1'
     #     )
-
-
-    def get_person_account_holder(self, person_id: "UUID"):
-        return self.zeta_service.get_person_account_holder(person_id)
-    
-    def get_person_account(self, person_id: "UUID"):
-        return self.zeta_service.get_person_account(person_id)
-    
-    def get_person_bundle(self, person_id: "UUID"):
-        return self.zeta_service.get_person_bundle(person_id)
-
-    def get_person_account_holder_job(self, person_id: "UUID"):
-        return self.zeta_service.get_person_account_holder_job(person_id)
-
-    def get_person_account_job(self, person_id: "UUID"):
-        return self.zeta_service.get_person_account_job(person_id)
-
-    def get_person_bundle_job(self, person_id: "UUID"):
-        return self.zeta_service.get_person_bundle_job(person_id)
-
-    def create_person_account_holder_job(self, 
-        person_id: "UUID",
-        first_name: str,
-        middle_name: str,
-        last_name: str,
-        dob: str,
-        gender: str,
-        mobile_number: str,
-        auth_type: str,
-        auth_data: str
-    ):
-
-        valid_data = PersonAccountHolderSchema().load({
-            'person_id': person_id,
-            'first_name': first_name,
-            'middle_name': middle_name,
-            'last_name': last_name,
-            'dob': dob,
-            'gender': gender,
-            'mobile_number': mobile_number,
-            'auth_type': auth_type,
-            'auth_data': auth_data
-        })
-
-        return self.zeta_service.create_person_account_holder_job(**valid_data)
-
-    def create_person_account_job(self, person_id: "UUID", account_holder_id: str, account_name: str):
-        valid_data = PersonAccountSchema().load({
-            'person_id': person_id,
-            'account_holder_id': account_holder_id,
-            'name': account_name
-        })
-        return self.zeta_service.create_person_account_job(**valid_data)
-
-    def create_person_bundle_job(self, person_id: "UUID", account_holder_id: str, account_name: str, mobile_number: str):
-        valid_data = PersonBundleSchema().load({
-            'person_id': person_id,
-            'account_holder_id': account_holder_id,
-            'name': account_name,
-            'mobile_number': mobile_number
-        })
-        return self.zeta_service.create_person_bundle_job(**valid_data)
-
-
