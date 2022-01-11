@@ -54,9 +54,9 @@ class ZetaMicroClient(object):
             'kyc_value': kyc_value,
             'phone_number': phone_number
         }
-        if person_id:
-            data['person_id'] = str(person_id)
         valid_data = CreateAccountHolderSchema().load(data)
+        if valid_data.get('person_id'):
+            valid_data['person_id'] = str(valid_data.get('person_id'))
         dob = valid_data.pop('dob')
         phone_number = '+91' + valid_data.pop('phone_number')
         response = self.zeta_service.create_account_holder(
@@ -92,9 +92,9 @@ class ZetaMicroClient(object):
             'account_holder_id': account_holder_id,
             'accounts': [account_name]
         }
-        if person_id:
-            data['person_id'] = str(person_id)
         valid_data = CreateAccountSchema().load(data)
+        if valid_data.get('person_id'):
+            valid_data['person_id'] = str(valid_data.get('person_id'))
         (error, response) = self.zeta_service.create_account(**valid_data)
         if error:
             return error, response
@@ -121,9 +121,9 @@ class ZetaMicroClient(object):
             'account_id': account_id,
             'phone_number': mobile_number
         }
-        if person_id:
-            data['person_id'] = str(person_id)
         valid_data = CreateResourceSchema().load(data)
+        if valid_data.get('person_id'):
+            valid_data['person_id'] = str(valid_data.get('person_id'))
         response = self.zeta_service.create_resource(**valid_data)
         return response
 
