@@ -45,6 +45,7 @@ class ZetaService(object):
     base_url_create_card = "/account/{account_id}/payment-instrument/card/create"
     base_url_delete_card = "/account/{account_id}/payment-instrument/card/delete"
 
+    base_url_get_card = "/card/{card_id}"
     base_url_get_card_status = "/card/{card_id}/status"
     base_url_update_card_status = "/card/{card_id}/status"
 
@@ -349,6 +350,15 @@ class ZetaService(object):
                 self.base_url_delete_card.format(account_holder_id=account_id)
             ),
             json=req_body,
+            headers=self.base_headers)
+        return self.process_response(response)
+
+    def get_card(self, card_id: str) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_get_card.format(card_id=card_id)
+            ),
             headers=self.base_headers)
         return self.process_response(response)
 

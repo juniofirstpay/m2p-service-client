@@ -252,6 +252,9 @@ class ZetaMicroClient(object):
             account_id=account_id)
         return response
 
+    def get_card(self, card_id: str):
+        return self.zeta_service.get_card(card_id=card_id)
+
     def get_card_status(self, card_id):
         response = self.zeta_service.get_card_status(
             card_id=card_id)
