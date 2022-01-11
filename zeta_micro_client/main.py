@@ -111,11 +111,13 @@ class ZetaMicroClient(object):
 
     def create_resource(self,
                         account_id: str,
-                        mobile_number: str) -> Dict:
+                        mobile_number: str,
+                        person_id = None) -> Dict:
 
         data = {
             'account_id': account_id,
-            'phone_number': mobile_number
+            'phone_number': mobile_number,
+            'person_id': person_id
         }
         valid_data = CreateResourceSchema().load(data)
         response = self.zeta_service.create_resource(**valid_data)
