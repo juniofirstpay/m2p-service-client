@@ -121,7 +121,8 @@ class ZetaMicroClient(object):
 
         data = {
             'account_id': account_id,
-            'phone_number': mobile_number
+            'phone_number': mobile_number,
+            "person_id": person_id
         }
         valid_data = CreateResourceSchema().load(data)
         if valid_data.get('person_id'):
