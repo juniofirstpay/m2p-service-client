@@ -52,7 +52,8 @@ class ZetaMicroClient(object):
             'gender': gender,
             'kyc_type': kyc_type,
             'kyc_value': kyc_value,
-            'phone_number': phone_number
+            'phone_number': phone_number,
+            'person_id': person_id
         }
         valid_data = CreateAccountHolderSchema().load(data)
         if valid_data.get('person_id'):
@@ -90,7 +91,8 @@ class ZetaMicroClient(object):
                        person_id: uuid=None) -> Dict:
         data = {
             'account_holder_id': account_holder_id,
-            'accounts': [account_name]
+            'accounts': [account_name],
+            "person_id": person_id
         }
         valid_data = CreateAccountSchema().load(data)
         if valid_data.get('person_id'):
