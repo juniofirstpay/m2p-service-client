@@ -308,6 +308,10 @@ class ZetaMicroClient(object):
             'card_attributes': card_attributes
         })
 
+        valid_data["person_id"] = str(person_id)
+        valid_data["customer"] = str(valid_data["customer"]["person_id"])
+        valid_data["receiver"] = str(valid_data["receiver"]["person_id"])
+
         return self.zeta_service.create_card_dispatch(**valid_data)
 
 
