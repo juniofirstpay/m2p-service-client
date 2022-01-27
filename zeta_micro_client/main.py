@@ -283,6 +283,31 @@ class ZetaMicroClient(object):
         )
         return response
 
+    def create_card_dispatch(self, 
+                             person_id: "UUID", 
+                             order_id: str, 
+                             dispatcher: str, 
+                             card_form_factor_id: str, 
+                             customer: dict, 
+                             receiver: dict, 
+                             delivery_address: dict, 
+                             card_attributes: dict):
+        from schema import CreateCardDispatchSchema
+
+        valid_data = CreateCardDispatchSchema().load({
+            'person_id': person_id,
+            'order_id': order_id,
+            'dispatcher': dispatcher,
+            'card_form_factor_id': card_form_factor_id,
+            'customer': customer,
+            'receiver': receiver,
+            'delivery_address': delivery_address,
+            'card_attributes': card_attributes
+        })
+
+        return self.zeta_service.create_card_dispatch(**valid_data)
+
+
     # def reissue_card_form_factor(
     #     self,
     #     child_account_id: str,

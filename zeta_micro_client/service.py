@@ -61,7 +61,7 @@ class ZetaService(object):
     base_url_person_bundle = "/person/{person_id}/bundle"
     base_url_person_bundle_job = "/person/{person_id}/bundle/job"
 
-
+    base_url_workflow_card_dispatch = "/workflow/dispatch"
 
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
@@ -485,3 +485,11 @@ class ZetaService(object):
             } }
         )
         return self.process_response(response)
+
+    def create_card_dispatch(self, **data: dict):
+        request=self.request.post(
+            url=urljoin(self.base_url, self.base_url_workflow_card_dispatch),
+            headers=self.base_headers,
+            json=data
+        )
+        return self.process_response(request)
