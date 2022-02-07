@@ -499,7 +499,7 @@ class ZetaService(object):
 
     def get_txn_policy(self, card_id):
         base_url_get_txn_policy = self.base_url_get_txn_policy.format(card_id=card_id)
-        response = self.request.post(
+        response = self.request.get(
             url=urljoin(self.base_url,
                         base_url_get_txn_policy),
             headers=self.base_headers
