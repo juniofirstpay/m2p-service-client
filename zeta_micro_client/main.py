@@ -392,3 +392,9 @@ class ZetaMicroClient(object):
             'mobile_number': mobile_number
         })
         return self.zeta_service.create_person_bundle_job(**valid_data)
+    
+    def get_txn_policy(self, card_id: uuid):
+        return self.zeta_service.get_txn_policy(card_id)
+
+    def update_txn_policy(self, card_id: uuid, txn_policy_list: list):
+        return self.zeta_service.update_txn_policy(card_id, txn_policy_list)

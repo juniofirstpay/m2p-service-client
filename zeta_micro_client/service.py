@@ -61,7 +61,27 @@ class ZetaService(object):
     base_url_person_bundle = "/person/{person_id}/bundle"
     base_url_person_bundle_job = "/person/{person_id}/bundle/job"
 
+    base_url_get_txn_policy = "/policy/get/{card_id}"
+    base_url_update_txn_policy = "/policy/update/{card_id}"
 
+    def get_txn_policy(self, card_id):
+        base_url_get_txn_policy = self.base_url_get_txn_policy.format(card_id=card_id)
+        response = self.request.post(
+            url=urljoin(self.base_url,
+                        base_url_get_txn_policy),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+    
+    def update_txn_policy(self, card_id, txn_policy_list):
+        base_url_get_txn_policy = self.base_url_get_txn_policy.format(card_id=card_id)
+        response = self.request.post(
+            url=urljoin(self.base_url,
+                        base_url_get_txn_policy),
+            headers=self.base_headers,
+            json=txn_policy_list
+        )
+        return self.process_response(response)
 
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
