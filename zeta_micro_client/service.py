@@ -63,6 +63,7 @@ class ZetaService(object):
 
     base_url_workflow_card_dispatch = "/workflow/dispatch"
 
+    base_url_create_txn_policy = "/policy/{account_holder_id}/{card_id}/create"
     base_url_get_txn_policy = "/policy/get/{card_id}"
     base_url_update_txn_policy = "/policy/update/{card_id}"
 
@@ -497,6 +498,19 @@ class ZetaService(object):
         )
         return self.process_response(request)
 
+    def create_txn_policy(self, account_holder_id, card_id, txn_policy_rules):
+        base_url_create_txn_policy = self.base_url_create_txn_policy.format(
+            account_holder_id=account_holder_id,
+            card_id=card_id
+        )
+        response = self.request.post(
+            url=urljoin(self.base_url,
+                        base_url_create_txn_policy),
+            headers=self.base_headers,
+            json=txn_policy_rules
+        )
+        return self.process_response(response)
+
     def get_txn_policy(self, card_id):
         base_url_get_txn_policy = self.base_url_get_txn_policy.format(card_id=card_id)
         response = self.request.get(
@@ -507,10 +521,10 @@ class ZetaService(object):
         return self.process_response(response)
     
     def update_txn_policy(self, card_id, txn_policy_list):
-        base_url_get_txn_policy = self.base_url_get_txn_policy.format(card_id=card_id)
+        base_url_update_txn_policy = self.base_url_update_txn_policy.format(card_id=card_id)
         response = self.request.post(
             url=urljoin(self.base_url,
-                        base_url_get_txn_policy),
+                        base_url_update_txn_policy),
             headers=self.base_headers,
             json=txn_policy_list
         )

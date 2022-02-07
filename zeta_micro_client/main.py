@@ -422,6 +422,9 @@ class ZetaMicroClient(object):
         })
         return self.zeta_service.create_person_bundle_job(**valid_data)
     
+    def create_txn_policy(self, account_holder_id: uuid, card_id: uuid, txn_policy_rules: list):
+        return self.zeta_service.create_txn_policy(account_holder_id, card_id, txn_policy_rules)
+    
     def get_txn_policy(self, card_id: uuid):
         return self.zeta_service.get_txn_policy(card_id)
 
