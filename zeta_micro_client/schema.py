@@ -105,3 +105,38 @@ class PersonBundleSchema(Schema):
     account_holder_id = fields.String(required=True)
     name = fields.String(required=True)
     mobile_number = fields.String(required=True)
+
+
+
+
+class CreateCardDispatchSchema(Schema):
+    
+    class CardDispatchPersonSchema(Schema):
+        person_id = fields.UUID(required=True, allow_none=False)
+        name = fields.String(required=True, allow_none=False)
+        mobile_number = fields.String(
+            required=True, validate=validate.Length(equal=10))
+    
+    class CardDispatchAddressSchema(Schema):
+        address_line_1 = fields.String(required=True, allow_none=False)
+        address_line_2 = fields.String(required=True, allow_none=False)
+        address_line_3 = fields.String(required=True, allow_none=False)
+        address_line_4 = fields.String(required=True, allow_none=False)
+        city = fields.String(required=True, allow_none=False)
+        state = fields.String(required=True, allow_none=False)
+        zipcode = fields.String(required=True, allow_none=False)
+    
+    class CardDispatchAttributesSchema(Schema):
+
+        card_name_1 = fields.String(required=True, allow_none=False)
+        card_name_2 = fields.String(required=True, allow_none=True)
+
+    person_id = fields.UUID(required=True, allow_none=False)
+    order_id = fields.String(required=True, allow_none=True)
+    dispatcher = fields.String(
+        required=True, validate=validate.OneOf(["DJANGO", "DOTNET"]))
+    card_form_factor_id = fields.Str(required=True, allow_none=True)
+    customer = fields.Nested(CardDispatchPersonSchema)
+    receiver = fields.Nested(CardDispatchPersonSchema)
+    delivery_address = fields.Nested(CardDispatchAddressSchema)
+    card_attributes = fields.Nested(CardDispatchAttributesSchema)
