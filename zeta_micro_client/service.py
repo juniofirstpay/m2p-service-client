@@ -336,7 +336,7 @@ class ZetaService(object):
         response = self.request.post(
             url=urljoin(
                 self.base_url,
-                self.base_url_create_card.format(account_holder_id=account_id)
+                self.base_url_create_card.format(account_id=account_id)
             ),
             json=req_body,
             headers=self.base_headers)
@@ -347,7 +347,7 @@ class ZetaService(object):
         response = self.request.post(
             url=urljoin(
                 self.base_url,
-                self.base_url_delete_card.format(account_holder_id=account_id)
+                self.base_url_delete_card.format(account_id=account_id)
             ),
             json=req_body,
             headers=self.base_headers)
