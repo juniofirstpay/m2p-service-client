@@ -255,9 +255,9 @@ class ZetaMicroClient(object):
             account_id=account_id, params=params)
         return response
 
-    def create_card(self, account_id: str, card: str):
+    def create_card(self, account_id: str):
         response = self.zeta_service.create_card(
-            account_id=account_id, card=card)
+            account_id=account_id)
         return response
 
     def delete_card(self, account_id: str):

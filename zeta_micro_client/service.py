@@ -333,16 +333,13 @@ class ZetaService(object):
         )
         return self.process_response(response)
 
-    def create_card(self, account_id, card_id) -> Tuple[Optional[int], Dict]:
-        req_body = {
-            "card_id": card_id
-        }
+    def create_card(self, account_id) -> Tuple[Optional[int], Dict]:
         response = self.request.post(
             url=urljoin(
                 self.base_url,
                 self.base_url_create_card.format(account_id=account_id)
             ),
-            json=req_body,
+            json={},
             headers=self.base_headers)
         return self.process_response(response)
 
