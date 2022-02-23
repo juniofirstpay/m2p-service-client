@@ -53,10 +53,10 @@ class ZetaService(object):
 
     base_url_fetch_txn_limit = "/accounts/{account_id}/fetch-limit"
 
-
     base_url_person_account_holder = "/person/{person_id}/account-holder"
     base_url_person_account_holder_job = "/person/{person_id}/account-holder/job"
     base_url_person_account = "/person/{person_id}/account"
+    base_url_person_account_details = "/person/{person_id}/account/details"
     base_url_person_account_job = "/person/{person_id}/account/job"
     base_url_person_bundle = "/person/{person_id}/bundle"
     base_url_person_bundle_job = "/person/{person_id}/bundle/job"
@@ -66,7 +66,6 @@ class ZetaService(object):
     base_url_create_txn_policy = "/policy/{account_holder_id}/{card_id}/create"
     base_url_get_txn_policy = "/policy/get/{card_id}"
     base_url_update_txn_policy = "/policy/update/{card_id}"
-
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
@@ -113,7 +112,7 @@ class ZetaService(object):
             headers=self.base_headers
         )
         return self.process_response(response)
-    
+
     def get_account_holder_via_id(self, ach_id: str):
         response = self.request.get(
             url=urljoin(self.base_url,
@@ -318,13 +317,13 @@ class ZetaService(object):
             params=params
         )
         return self.process_response(response)
-    
+
     def get_account_transactions_v2(self, account_id: str, params: Optional[Dict] = None) -> Tuple[Optional[int], Union[List, Dict]]:
         url = urljoin(
-                self.base_url,
-                self.base_url_account_transactions.format(
-                    account_id=account_id)
-            )
+            self.base_url,
+            self.base_url_account_transactions.format(
+                account_id=account_id)
+        )
         if params:
             url = url + "?" + urllib.parse.urlencode(params)
         response = self.request.get(
@@ -397,7 +396,8 @@ class ZetaService(object):
 
     def get_person_account_holder(self, person_id: "UUID"):
         response = self.request.get(
-            url=urljoin(self.base_url, self.base_url_person_account_holder.format(person_id=person_id)),
+            url=urljoin(self.base_url, self.base_url_person_account_holder.format(
+                person_id=person_id)),
             headers=self.base_headers
         )
         return self.process_response(response)
@@ -405,6 +405,14 @@ class ZetaService(object):
     def get_person_account(self, person_id: "UUID"):
         response = self.request.get(
             url=urljoin(self.base_url, self.base_url_person_account.format(
+                person_id=person_id)),
+            headers=self.base_headers
+        )
+        return self.process_response(response)
+
+    def get_person_account_details(self, person_id: "UUID"):
+        response = self.request.get(
+            url=urljoin(self.base_url, self.base_url_person_account_details.format(
                 person_id=person_id)),
             headers=self.base_headers
         )
@@ -442,17 +450,17 @@ class ZetaService(object):
         )
         return self.process_response(response)
 
-    def create_person_account_holder_job(self, person_id: "UUID"=None, **data: dict):
+    def create_person_account_holder_job(self, person_id: "UUID" = None, **data: dict):
         response = self.request.post(
             url=urljoin(self.base_url, self.base_url_person_account_holder_job.format(
                 person_id=person_id)),
             headers=self.base_headers,
-            json={ "attributes": {
-                    "kyc": {
-                        **data,
-                        "dob": data.get('dob').strftime('%Y-%m-%d')
-                    }
-                }}
+            json={"attributes": {
+                "kyc": {
+                    **data,
+                    "dob": data.get('dob').strftime('%Y-%m-%d')
+                }
+            }}
         )
         return self.process_response(response)
 
@@ -469,13 +477,13 @@ class ZetaService(object):
             }}
         )
         return self.process_response(response)
-    
+
     def create_person_bundle_job(self, person_id: "UUID" = None, **data: dict):
         response = self.request.post(
             url=urljoin(self.base_url, self.base_url_person_bundle_job.format(
                 person_id=person_id)),
             headers=self.base_headers,
-            json={ "attributes": {
+            json={"attributes": {
                 "account_holder_id": data.get("account_holder_id"),
                 "account": {
                     "name": data.get("name"),
@@ -483,12 +491,12 @@ class ZetaService(object):
                 "payment_instrument": {
                     "mobile_number": data.get("mobile_number"),
                 }
-            } }
+            }}
         )
         return self.process_response(response)
 
     def create_card_dispatch(self, **data: dict):
-        request=self.request.post(
+        request = self.request.post(
             url=urljoin(self.base_url, self.base_url_workflow_card_dispatch),
             headers=self.base_headers,
             json=data
@@ -509,16 +517,18 @@ class ZetaService(object):
         return self.process_response(response)
 
     def get_txn_policy(self, card_id):
-        base_url_get_txn_policy = self.base_url_get_txn_policy.format(card_id=card_id)
+        base_url_get_txn_policy = self.base_url_get_txn_policy.format(
+            card_id=card_id)
         response = self.request.get(
             url=urljoin(self.base_url,
                         base_url_get_txn_policy),
             headers=self.base_headers
         )
         return self.process_response(response)
-    
+
     def update_txn_policy(self, card_id, txn_policy_list):
-        base_url_update_txn_policy = self.base_url_update_txn_policy.format(card_id=card_id)
+        base_url_update_txn_policy = self.base_url_update_txn_policy.format(
+            card_id=card_id)
         response = self.request.post(
             url=urljoin(self.base_url,
                         base_url_update_txn_policy),

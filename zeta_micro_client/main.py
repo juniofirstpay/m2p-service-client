@@ -366,6 +366,9 @@ class ZetaMicroClient(object):
 
     def get_person_account(self, person_id: "UUID"):
         return self.zeta_service.get_person_account(person_id)
+    
+    def get_person_account_details(self, person_id: "UUID"):
+        return self.zeta_service.get_person_account_details(person_id)
 
     def get_person_bundle(self, person_id: "UUID"):
         return self.zeta_service.get_person_bundle(person_id)
