@@ -333,11 +333,10 @@ class ZetaService(object):
         )
         return self.process_response(response)
 
-    def get_person_account_transactions(self, account_id: str, params: Optional[Dict] = None) -> Tuple[Optional[int], Union[List, Dict]]:
+    def get_person_account_transactions(self, person_id: str, params: Optional[Dict] = None) -> Tuple[Optional[int], Union[List, Dict]]:
         url = urljoin(
             self.base_url,
-            self.base_url_person_account_transactions.format(
-                account_id=account_id)
+            self.base_url_person_account_transactions.format(person_id=person_id)
         )
         if params:
             url = url + "?" + urllib.parse.urlencode(params)
