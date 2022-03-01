@@ -459,6 +459,9 @@ class ZetaService(object):
                 "kyc": {
                     **data,
                     "dob": data.get('dob').strftime('%Y-%m-%d')
+                },
+                "proxy": {
+                    "account_holder_id": data.get('proxy_ach')
                 }
             }}
         )

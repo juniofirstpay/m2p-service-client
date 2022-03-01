@@ -90,6 +90,7 @@ class PersonAccountHolderSchema(Schema):
     mobile_number = fields.String(required=True, validate=validate.Length(10))
     auth_type = fields.String(required=True, validate=validate.OneOf(["PAN", "DRIVING_LICENSE", "VOTER_ID", "PASSPORT"]))
     auth_data = fields.String(required=True, min=5)
+    proxy_ach = fields.String(required=False, allow_none=True)
 
 
 class PersonAccountSchema(Schema):
