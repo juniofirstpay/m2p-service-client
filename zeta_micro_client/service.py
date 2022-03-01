@@ -60,6 +60,7 @@ class ZetaService(object):
     base_url_person_account_job = "/person/{person_id}/account/job"
     base_url_person_bundle = "/person/{person_id}/bundle"
     base_url_person_bundle_job = "/person/{person_id}/bundle/job"
+    base_url_person_account_transactions = "/person/{person_id}/transactions"
 
     base_url_workflow_card_dispatch = "/workflow/dispatch"
 
@@ -322,6 +323,20 @@ class ZetaService(object):
         url = urljoin(
             self.base_url,
             self.base_url_account_transactions.format(
+                account_id=account_id)
+        )
+        if params:
+            url = url + "?" + urllib.parse.urlencode(params)
+        response = self.request.get(
+            url=url,
+            headers=self.base_headers,
+        )
+        return self.process_response(response)
+
+    def get_person_account_transactions(self, account_id: str, params: Optional[Dict] = None) -> Tuple[Optional[int], Union[List, Dict]]:
+        url = urljoin(
+            self.base_url,
+            self.base_url_person_account_transactions.format(
                 account_id=account_id)
         )
         if params:
