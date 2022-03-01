@@ -410,10 +410,11 @@ class ZetaService(object):
         )
         return self.process_response(response)
 
-    def get_person_account_details(self, person_id: "UUID"):
+    def get_person_account_details(self, person_id: "UUID", account_id: str = None):
         response = self.request.get(
             url=urljoin(self.base_url, self.base_url_person_account_details.format(
                 person_id=person_id)),
+            params={'account_id': account_id},
             headers=self.base_headers
         )
         return self.process_response(response)
