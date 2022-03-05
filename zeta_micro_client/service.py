@@ -8,19 +8,19 @@ from requests.models import Response
 
 class ZetaService(object):
 
-    base_url_create_account_holder = '/account-holder/create'
-    base_url_get_account_holder = '/account-holder/{account_holder_id}'
-    base_url_get_account_holder_type = '/account-holder/vector/{type}/{value}'
+    base_url_create_account_holder = 'account-holder/create'
+    base_url_get_account_holder = 'account-holder/{account_holder_id}'
+    base_url_get_account_holder_type = 'account-holder/vector/{type}/{value}'
 
     base_url_get_accounts = 'account/account-holder/{account_holder_id}'
-    base_url_get_resources = '/account-holder/{account_holder_id}/resources'
+    base_url_get_resources = 'account-holder/{account_holder_id}/resources'
 
-    base_url_create_account = '/account/create'
-    base_url_get_account = '/account/{account_id}/details'
+    base_url_create_account = 'account/create'
+    base_url_get_account = 'account/{account_id}/details'
 
-    base_url_get_account_balance = '/account/{account_id}/balance'
-    base_url_get_account_holder_balance = '/account/account-holder/{account_holder_id}/balance'
-    base_url_get_account_holder_token = '/account-holder/{account_holder_id}/token'
+    base_url_get_account_balance = 'account/{account_id}/balance'
+    base_url_get_account_holder_balance = 'account/account-holder/{account_holder_id}/balance'
+    base_url_get_account_holder_token = 'account-holder/{account_holder_id}/token'
 
     base_url_create_resource = 'account/payment-instrument/create'
     base_url_get_resource = 'account/payment-instrument/{resource_id}'
@@ -30,43 +30,43 @@ class ZetaService(object):
 
     base_url_get_resource_via_account_id = "/account/{account_id}/payment-instrument"
 
-    base_url_form_factor_id = '/payment-instrument/{resource_id}/form-factors/{form_factor_id}'
+    base_url_form_factor_id = 'payment-instrument/{resource_id}/form-factors/{form_factor_id}'
 
-    base_url_update_account = '/account/{account_id}/update'
+    base_url_update_account = 'account/{account_id}/update'
 
-    base_url_account_debit = "/transactions/debit"
-    base_url_account_credit = "/transactions/credit"
-    base_url_account_intra_transfer = "/transactions/intra-transfer"
-    base_url_txn_reversal = "/transactions/{txn_id}/reversal"
+    base_url_account_debit = "transactions/debit"
+    base_url_account_credit = "transactions/credit"
+    base_url_account_intra_transfer = "transactions/intra-transfer"
+    base_url_txn_reversal = "transactions/{txn_id}/reversal"
 
-    base_url_create_phone_number = "/account/{account_id}/payment-instrument/phone-number/create"
-    base_url_delete_phone_number = "/account/{account_id}/payment-instrument/phone-number/delete"
+    base_url_create_phone_number = "account/{account_id}/payment-instrument/phone-number/create"
+    base_url_delete_phone_number = "account/{account_id}/payment-instrument/phone-number/delete"
 
-    base_url_create_card = "/account/{account_id}/payment-instrument/card/create"
-    base_url_delete_card = "/account/{account_id}/payment-instrument/card/delete"
+    base_url_create_card = "account/{account_id}/payment-instrument/card/create"
+    base_url_delete_card = "account/{account_id}/payment-instrument/card/delete"
 
-    base_url_get_card = "/card/{card_id}/resource"
-    base_url_get_card_status = "/card/{card_id}/status"
-    base_url_update_card_status = "/card/{card_id}/status"
+    base_url_get_card = "card/{card_id}/resource"
+    base_url_get_card_status = "card/{card_id}/status"
+    base_url_update_card_status = "card/{card_id}/status"
 
-    base_url_get_txns = "/card/resource/{resource_id}/transactions"
+    base_url_get_txns = "card/resource/{resource_id}/transactions"
 
-    base_url_fetch_txn_limit = "/accounts/{account_id}/fetch-limit"
+    base_url_fetch_txn_limit = "accounts/{account_id}/fetch-limit"
 
-    base_url_person_account_holder = "/person/{person_id}/account-holder"
-    base_url_person_account_holder_job = "/person/{person_id}/account-holder/job"
-    base_url_person_account = "/person/{person_id}/account"
-    base_url_person_account_details = "/person/{person_id}/account/details"
-    base_url_person_account_job = "/person/{person_id}/account/job"
-    base_url_person_bundle = "/person/{person_id}/bundle"
-    base_url_person_bundle_job = "/person/{person_id}/bundle/job"
-    base_url_person_account_transactions = "/person/{person_id}/transactions"
+    base_url_person_account_holder = "person/{person_id}/account-holder"
+    base_url_person_account_holder_job = "person/{person_id}/account-holder/job"
+    base_url_person_account = "person/{person_id}/account"
+    base_url_person_account_details = "person/{person_id}/account/details"
+    base_url_person_account_job = "person/{person_id}/account/job"
+    base_url_person_bundle = "person/{person_id}/bundle"
+    base_url_person_bundle_job = "person/{person_id}/bundle/job"
+    base_url_person_account_transactions = "person/{person_id}/transactions"
 
-    base_url_workflow_card_dispatch = "/workflow/dispatch"
+    base_url_workflow_card_dispatch = "workflow/dispatch"
 
-    base_url_create_txn_policy = "/policy/{account_holder_id}/{card_id}/create"
-    base_url_get_txn_policy = "/policy/get/{card_id}"
-    base_url_update_txn_policy = "/policy/update/{card_id}"
+    base_url_create_txn_policy = "policy/{account_holder_id}/{card_id}/create"
+    base_url_get_txn_policy = "policy/get/{card_id}"
+    base_url_update_txn_policy = "policy/update/{card_id}"
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
