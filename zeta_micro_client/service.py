@@ -68,6 +68,9 @@ class ZetaService(object):
     base_url_get_txn_policy = "policy/get/{card_id}"
     base_url_update_txn_policy = "policy/update/{card_id}"
 
+    base_url_card_policy = "card/policy"
+
+
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
         self.client_id = client_id
@@ -552,5 +555,31 @@ class ZetaService(object):
                         base_url_update_txn_policy),
             headers=self.base_headers,
             json=txn_policy_list
+        )
+        return self.process_response(response)
+
+
+    def get_card_policy(self, card_id, account_holder_id):
+        base_url = self.base_url_card_policy
+        response = self.request.get(
+            url=urljoin(self.base_url, base_url),
+            headers=self.base_headers,
+            params={
+                'card_id': card_id,
+                'account_holder_id': account_holder_id
+            }
+        )
+        return self.process_response(response)
+    
+    def post_card_policy(self, card_id, account_holder_id, rules):
+        base_url = self.base_url_card_policy
+        response = self.request.get(
+            url=urljoin(self.base_url, base_url),
+            headers=self.base_headers,
+            json={
+                'card_id': card_id,
+                'account_holder_id': account_holder_id,
+                'data': rules
+            }
         )
         return self.process_response(response)

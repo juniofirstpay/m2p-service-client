@@ -438,3 +438,9 @@ class ZetaMicroClient(object):
 
     def update_txn_policy(self, card_id: uuid, txn_policy_list: list):
         return self.zeta_service.update_txn_policy(card_id, txn_policy_list)
+
+    def get_card_policy(self, card_id: str, account_holder_id: str):
+        return self.zeta_service.get_card_policy(card_id, account_holder_id)
+    
+    def set_card_policy(self, card_id: str, account_holder_id: str, rules):
+        return self.zeta_service.get_card_policy(card_id, account_holder_id, rules)
