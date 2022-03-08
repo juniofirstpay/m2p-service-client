@@ -571,7 +571,7 @@ class ZetaService(object):
         )
         return self.process_response(response)
     
-    def post_card_policy(self, card_id, account_holder_id, rules):
+    def set_card_policy(self, card_id, account_holder_id, rules):
         base_url = self.base_url_card_policy
         response = self.request.get(
             url=urljoin(self.base_url, base_url),

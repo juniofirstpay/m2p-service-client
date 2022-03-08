@@ -443,4 +443,4 @@ class ZetaMicroClient(object):
         return self.zeta_service.get_card_policy(card_id, account_holder_id)
     
     def set_card_policy(self, card_id: str, account_holder_id: str, rules):
-        return self.zeta_service.get_card_policy(card_id, account_holder_id, rules)
+        return self.zeta_service.set_card_policy(card_id, account_holder_id, rules)
