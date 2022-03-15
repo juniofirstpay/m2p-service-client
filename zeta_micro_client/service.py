@@ -38,6 +38,7 @@ class ZetaService(object):
     base_url_account_credit = "transactions/credit"
     base_url_account_intra_transfer = "transactions/intra-transfer"
     base_url_txn_reversal = "transactions/{txn_id}/reversal"
+    base_url_txn_get = "transactions/{txn_id}/details"
 
     base_url_create_phone_number = "account/{account_id}/payment-instrument/phone-number/create"
     base_url_delete_phone_number = "account/{account_id}/payment-instrument/phone-number/delete"
@@ -258,6 +259,12 @@ class ZetaService(object):
     def reverse_txn(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.post(url=urljoin(self.base_url,
                                                  self.base_url_txn_reversal.format(txn_id=kwargs.get('txn_id'))),
+                                     headers=self.base_headers)
+        return self.process_response(response)
+    
+    def get_txn(self, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(url=urljoin(self.base_url,
+                                                 self.base_url_txn_get.format(txn_id=kwargs.get('txn_id'))),
                                      headers=self.base_headers)
         return self.process_response(response)
 

@@ -212,6 +212,10 @@ class ZetaMicroClient(object):
         response = self.zeta_service.account_transfer(**valid_data)
         return response
 
+    def get_txn(self, txn_id: str):
+        response = self.zeta_service.get_txn(txn_id=txn_id)
+        return response
+    
     def reverse_txn(self, txn_id: str):
         response = self.zeta_service.reverse_txn(txn_id=txn_id)
         return response
