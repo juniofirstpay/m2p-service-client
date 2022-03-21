@@ -28,7 +28,7 @@ class ZetaService(object):
     base_url_resource_id_delete = 'account/payment-instrument/{resource_id}/delete'
     base_url_account_transactions = "v2/account/{account_id}/transactions"
 
-    base_url_get_resource_via_account_id = "/account/{account_id}/payment-instrument"
+    base_url_get_resource_via_account_id = "account/{account_id}/payment-instrument"
 
     base_url_form_factor_id = 'payment-instrument/{resource_id}/form-factors/{form_factor_id}'
 
