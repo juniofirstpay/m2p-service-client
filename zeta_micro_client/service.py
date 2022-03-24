@@ -63,7 +63,8 @@ class ZetaService(object):
     base_url_person_bundle_job = "person/{person_id}/bundle/job"
     base_url_person_account_transactions = "person/{person_id}/transactions"
 
-    base_url_workflow_card_dispatch = "workflow/dispatch"
+    base_url_workflow_create_card_dispatch = "/workflow/dispatch/card/create"
+    base_url_workflow_get_card_dispatch = "/workflow/dispatch/card/find"
 
     base_url_create_txn_policy = "policy/{account_holder_id}/{card_id}/create"
     base_url_get_txn_policy = "policy/get/{card_id}"
@@ -528,6 +529,14 @@ class ZetaService(object):
             url=urljoin(self.base_url, self.base_url_workflow_card_dispatch),
             headers=self.base_headers,
             json=data
+        )
+        return self.process_response(request)
+    
+    def find_card_dispatch(self, **params: dict):
+        request = self.request.post(
+            url=urljoin(self.base_url, self.base_url_workflow_card_dispatch),
+            headers=self.base_headers,
+            params=params
         )
         return self.process_response(request)
 
