@@ -302,7 +302,7 @@ class ZetaMicroClient(object):
                              receiver: dict, 
                              delivery_address: dict, 
                              card_attributes: dict):
-        from schema import CreateCardDispatchSchema
+        from .schema import CreateCardDispatchSchema
 
         valid_data = CreateCardDispatchSchema().load({
             'person_id': person_id,
