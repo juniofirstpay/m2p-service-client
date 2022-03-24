@@ -533,7 +533,7 @@ class ZetaService(object):
         return self.process_response(request)
     
     def find_card_dispatch(self, **params: dict):
-        request = self.request.post(
+        request = self.request.get(
             url=urljoin(self.base_url, self.base_url_workflow_find_card_dispatch),
             headers=self.base_headers,
             params=params
