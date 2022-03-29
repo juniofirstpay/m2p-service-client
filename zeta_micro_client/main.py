@@ -432,7 +432,7 @@ class ZetaMicroClient(object):
         })
         return self.zeta_service.create_person_account_job(**valid_data)
 
-    def create_person_bundle_job(self, person_id: "UUID", account_holder_id: str, account_name: str, mobile_number: str, account_id: Optional[str]):
+    def create_person_bundle_job(self, person_id: "UUID", account_holder_id: str, account_name: str, mobile_number: str, account_id: Optional[str]=None):
         valid_data = PersonBundleSchema().load({
             'person_id': person_id,
             'account_holder_id': account_holder_id,

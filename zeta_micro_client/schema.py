@@ -106,7 +106,7 @@ class PersonBundleSchema(Schema):
     account_holder_id = fields.String(required=True)
     name = fields.String(required=True)
     mobile_number = fields.String(required=True)
-    account_id = fields.String()
+    account_id = fields.String(allow_none=True)
 
 class CreateCardDispatchSchema(Schema):
     
