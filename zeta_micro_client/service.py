@@ -517,6 +517,7 @@ class ZetaService(object):
                 "account_holder_id": data.get("account_holder_id"),
                 "account": {
                     "name": data.get("name"),
+                    "account_id": data.get("account_id")
                 },
                 "payment_instrument": {
                     "mobile_number": data.get("mobile_number"),
