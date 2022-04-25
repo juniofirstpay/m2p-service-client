@@ -323,8 +323,8 @@ class ZetaMicroClient(object):
 
         return self.zeta_service.create_card_dispatch(**valid_data)
 
-    def find_card_dispatch(self, person_id: str, card_form_factor_id: str):
-        return self.zeta_service.find_card_dispatch(person_id=person_id, card_form_factor_id=card_form_factor_id)
+    def find_card_dispatch(self, person_id: str, card_form_factor_id: str, secondary_person_id: str=None):
+        return self.zeta_service.find_card_dispatch(person_id=person_id, card_form_factor_id=card_form_factor_id, secondary_person_id=secondary_person_id)
     
     def get_card_dispatch(self, card_dispatch_id: str):
         return self.zeta_service.get_card_dispatch(card_dispatch_id)
