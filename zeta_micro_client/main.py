@@ -328,6 +328,9 @@ class ZetaMicroClient(object):
     
     def get_card_dispatch(self, card_dispatch_id: str):
         return self.zeta_service.get_card_dispatch(card_dispatch_id)
+    
+    def check_zipcode(self, zipcode: str):
+        return self.zeta_service.check_zipcode(params={ 'zipcode': zipcode })
 
     # def reissue_card_form_factor(
     #     self,
