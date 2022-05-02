@@ -555,7 +555,7 @@ class ZetaService(object):
         request = self.request.get(
             url=urljoin(self.base_url,
                         self.base_url_workflow_check_zipcode),
-            headers=self.base_headers,
+            headers={**self.base_headers, 'X-Api-Version': 'v1' },
             params=params
         )
         return self.process_response(request)
