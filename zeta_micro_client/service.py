@@ -11,7 +11,7 @@ class ZetaService(object):
     base_url_create_account_holder = 'account-holder/create'
     base_url_get_account_holder = 'account-holder/{account_holder_id}'
     base_url_get_account_holder_type = 'account-holder/vector/{type}/{value}'
-    base_url_account_holder_otp_action = 'account-hoder/otp'
+    base_url_account_holder_otp_action = 'account-holder/otp'
 
     base_url_get_accounts = 'account/account-holder/{account_holder_id}'
     base_url_get_resources = 'account-holder/{account_holder_id}/resources'
