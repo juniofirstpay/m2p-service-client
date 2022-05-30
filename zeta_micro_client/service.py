@@ -654,7 +654,7 @@ class ZetaService(object):
         base_url = self.base_url_account_holder_otp_action
         response = self.request.post(
             url=urljoin(self.base_url, base_url),
-            headers=self.base_headers,
+            headers={**self.base_headers, 'X-API-VERSION': 'v1' },
             json={
                 'action': 'VALIDATE',
                 'request':  {
