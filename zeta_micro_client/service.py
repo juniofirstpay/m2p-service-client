@@ -11,6 +11,7 @@ class ZetaService(object):
     base_url_create_account_holder = 'account-holder/create'
     base_url_get_account_holder = 'account-holder/{account_holder_id}'
     base_url_get_account_holder_type = 'account-holder/vector/{type}/{value}'
+    base_url_account_holder_otp_action = 'account-hoder/otp'
 
     base_url_get_accounts = 'account/account-holder/{account_holder_id}'
     base_url_get_resources = 'account-holder/{account_holder_id}/resources'
@@ -625,11 +626,44 @@ class ZetaService(object):
         base_url = self.base_url_card_policy
         response = self.request.post(
             url=urljoin(self.base_url, base_url),
-            headers=self.base_headers,
+            headers={**self.base_headers, 'X-API-VERSION': 'v1' },
             json={
                 'card_id': card_id,
                 'account_holder_id': account_holder_id,
                 'data': rules
+            }
+        )
+        return self.process_response(response)
+
+
+    def generate_otp(self, mobile_number):
+        base_url = self.base_url_account_holder_otp_action
+        response = self.request.post(
+            url=urljoin(self.base_url, base_url),
+            headers={**self.base_headers, 'X-API-VERSION': 'v1' },
+            json={
+                'action': 'GENERATE',
+                'request':  {
+                    "mobile_number": mobile_number
+                }
+            }
+        )
+        return self.process_response(response)
+    
+    def validate_otp(self, mobile_number, session_id, user_response):
+        base_url = self.base_url_account_holder_otp_action
+        response = self.request.post(
+            url=urljoin(self.base_url, base_url),
+            headers=self.base_headers,
+            json={
+                'action': 'VALIDATE',
+                'request':  {
+                    'mobile_number': mobile_number
+                },
+                'response': {
+                    'user_response': user_response,
+                    'session_id': session_id
+                }
             }
         )
         return self.process_response(response)

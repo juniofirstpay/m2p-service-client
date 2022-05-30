@@ -467,3 +467,9 @@ class ZetaMicroClient(object):
     
     def set_card_policy(self, card_id: str, account_holder_id: str, rules):
         return self.zeta_service.set_card_policy(card_id, account_holder_id, rules)
+
+    def generate_otp(self, mobile_number: str):
+        return self.zeta_service.generate_otp(mobile_number)
+    
+    def validate_otp(self, mobile_number: str, session_id: str, otp: str):
+        return self.zeta_service.validate_otp(mobile_number, session_id, otp)
