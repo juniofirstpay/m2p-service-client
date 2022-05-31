@@ -17,7 +17,7 @@ class CreateAccountHolderSchema(Schema):
         required=True, validate=validate.Length(equal=10))
     dob = fields.Date(required=True)
     person_id = fields.UUID(required=False, allow_none=True)
-
+    session_id = fields.String(required=False, allow_none=True)
 
 class CreateAccountSchema(Schema):
     account_holder_id = fields.Str(required=True)

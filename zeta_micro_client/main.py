@@ -417,7 +417,8 @@ class ZetaMicroClient(object):
                                          mobile_number: str,
                                          auth_type: str,
                                          auth_data: str,
-                                         proxy_ach: str=None
+                                         proxy_ach: str=None,
+                                         session_id: str=None
                                          ):
 
         valid_data = PersonAccountHolderSchema().load({
@@ -430,8 +431,8 @@ class ZetaMicroClient(object):
             'mobile_number': mobile_number,
             'auth_type': auth_type,
             'auth_data': auth_data,
-            'proxy_ach': proxy_ach
-        })
+            'proxy_ach': proxy_ach,
+            'session_id': session_id})
 
         return self.zeta_service.create_person_account_holder_job(**valid_data)
 
