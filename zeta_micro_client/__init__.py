@@ -1,7 +1,7 @@
 from .main import ZetaMicroClient
 from .service import ZetaService
 from .env import __config
-
+from .v2 import ZetaClient as ZetaClientV2
 
 zeta_service = ZetaService(__config.get('endpoint'),
                            __config.get('clientid'),
