@@ -69,6 +69,7 @@ class ZetaService(object):
     base_url_workflow_create_card_dispatch = "workflow/dispatch/card/create"
     base_url_workflow_find_card_dispatch = "workflow/dispatch/card/find"
     base_url_workflow_get_card_dispatch = "workflow/dispatch/card/{card_dispatch_id}"
+    base_url_workflow_get_card_dispatch_edit_action = "workflow/dispatch/card/{card_dispatch_id}/edit/action"
     base_url_workflow_check_zipcode = "workflow/dispatch/zipcode/status"
 
     base_url_create_txn_policy = "policy/{account_holder_id}/{card_id}/create"
@@ -666,4 +667,14 @@ class ZetaService(object):
                 }
             }
         )
+        return self.process_response(response)
+
+    def edit_action_card_dispatch_action(self, card_dispatch_id, action, attributes):
+        base_url = self.base_url_workflow_get_card_dispatch_edit_action.format(card_dispatch_id=card_dispatch_id)
+        response = self.request.post(url=urljoin(self.base_url, base_url),
+                                     headers={**self.base_headers, 'X-API-VERSION': 'v1' },
+                                     json={
+                                        'action': action,
+                                        'attributes': attributes
+                                     })
         return self.process_response(response)

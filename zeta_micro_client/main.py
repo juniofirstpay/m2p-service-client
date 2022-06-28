@@ -337,6 +337,9 @@ class ZetaMicroClient(object):
     def get_card_dispatch(self, card_dispatch_id: str):
         return self.zeta_service.get_card_dispatch(card_dispatch_id)
     
+    def edit_card_dispatch_action(self, card_dispatch_id: str, action: str, attributes: dict):
+        return self.zeta_service.edit_action_card_dispatch_action(card_dispatch_id, action, attributes)
+
     def check_zipcode(self, zipcode: str):
         return self.zeta_service.check_zipcode(params={ 'zipcode': zipcode })
 
