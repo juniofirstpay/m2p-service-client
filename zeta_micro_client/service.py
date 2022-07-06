@@ -52,6 +52,8 @@ class ZetaService(object):
     base_url_get_card = "card/{card_id}/resource"
     base_url_get_card_status = "card/{card_id}/status"
     base_url_update_card_status = "card/{card_id}/status"
+    base_url_get_card_view = "card/view"
+    base_url_get_card_set_pin = "card/set-pin"
 
     base_url_get_txns = "card/resource/{resource_id}/transactions"
 
@@ -401,6 +403,33 @@ class ZetaService(object):
             url=urljoin(
                 self.base_url,
                 self.base_url_get_card.format(card_id=card_id)
+            ),
+            headers=self.base_headers)
+        return self.process_response(response)
+    
+    def get_card_view(self, card_id: str) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_get_card.format(card_id=card_id)
+            ),
+            headers=self.base_headers)
+        return self.process_response(response)
+    
+    def get_card_view(self, card_id: str) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_get_card_view + "?card_id={card_id}".format(card_id=card_id)
+            ),
+            headers=self.base_headers)
+        return self.process_response(response)
+    
+    def get_card_set_pin(self, card_id: str) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_get_card_set_pin + "?card_id={card_id}".format(card_id=card_id)
             ),
             headers=self.base_headers)
         return self.process_response(response)
