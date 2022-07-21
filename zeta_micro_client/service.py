@@ -568,7 +568,8 @@ class ZetaService(object):
                 "payment_instrument": {
                     "mobile_number": data.get("mobile_number"),
                 },
-                "session_id": data.get("session_id")
+                "session_id": data.get("session_id"),
+                "session_date": data.get("session_date")
             }}
         )
         return self.process_response(response)
