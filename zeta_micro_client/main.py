@@ -427,9 +427,9 @@ class ZetaMicroClient(object):
                                          mobile_number: str,
                                          auth_type: str,
                                          auth_data: str,
-                                         proxy_ach: str=None,
                                          session_id: "Optional[str]"=None,
-                                         session_date: "Optional[datetime]"=None
+                                         session_date: "Optional[datetime]"=None,
+                                         proxy_ach: str=None
                                          ):
 
         valid_data = PersonAccountHolderSchema().load({
