@@ -92,6 +92,7 @@ class PersonAccountHolderSchema(Schema):
     auth_data = fields.String(required=True, min=5)
     proxy_ach = fields.String(required=False, allow_none=True)
     session_id = fields.String(required=False, allow_none=True)
+    session_date = fields.DateTime(required=False, allow_none=True)
 
 
 class PersonAccountSchema(Schema):
@@ -109,6 +110,7 @@ class PersonBundleSchema(Schema):
     mobile_number = fields.String(required=True)
     account_id = fields.String(allow_none=True)
     session_id = fields.String(required=False, allow_none=True)
+    session_date = fields.DateTime(required=False, allow_none=True)
 
 class CreateCardDispatchSchema(Schema):
     
