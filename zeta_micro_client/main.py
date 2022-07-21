@@ -425,8 +425,8 @@ class ZetaMicroClient(object):
                                          dob: str,
                                          gender: str,
                                          mobile_number: str,
-                                         auth_type: str,
-                                         auth_data: str,
+                                         auth_type: str=None,
+                                         auth_data: str=None,
                                          session_id: "Optional[str]"=None,
                                          session_date: "Optional[datetime]"=None,
                                          proxy_ach: str=None
