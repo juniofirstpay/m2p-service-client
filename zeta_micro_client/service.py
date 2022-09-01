@@ -20,6 +20,7 @@ class ZetaService(object):
     base_url_get_account = 'account/{account_id}/details'
 
     base_url_get_account_balance = 'account/{account_id}/balance'
+    base_url_get_funding_account_balance = 'account/funding/balance'
     base_url_get_account_credit_limit = 'account/{account_id}/credit-limit'
     base_url_get_account_debit_limit = 'account/{account_id}/debit-limit'
     base_url_get_account_holder_balance = 'account/account-holder/{account_holder_id}/balance'
@@ -282,6 +283,11 @@ class ZetaService(object):
                                                 self.base_url_get_account_balance.format(account_id=kwargs.get('account_id'))),
                                     headers=self.base_headers)
         return self.process_response(response)
+    
+    def get_funding_account_balance(self) -> "Tuple[Optional[int], Dict]":
+        response = self.request.get(url=urljoin(self.base_url, self.base_url_get_funding_account_balance),
+                                    headers=self.base_headers)
+        return response
     
     def get_credit_limit(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.get(url=urljoin(self.base_url,
