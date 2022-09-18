@@ -68,6 +68,7 @@ class ZetaService(object):
     base_url_person_bundle = "person/{person_id}/bundle"
     base_url_person_bundle_job = "person/{person_id}/bundle/job"
     base_url_person_account_transactions = "person/{person_id}/transactions"
+    base_url_person_payment_instrument_addon = "person/{person_id}/payment-instrument/add"
 
     base_url_workflow_create_card_dispatch = "workflow/dispatch/card/create"
     base_url_workflow_find_card_dispatch = "workflow/dispatch/card/find"
@@ -565,21 +566,33 @@ class ZetaService(object):
             url=urljoin(self.base_url, self.base_url_person_bundle_job.format(
                 person_id=person_id)),
             headers=self.base_headers,
-            json={"attributes": {
-                "account_holder_id": data.get("account_holder_id"),
-                "account": {
-                    "name": data.get("name"),
-                    "account_id": data.get("account_id")
-                },
-                "payment_instrument": {
-                    "mobile_number": data.get("mobile_number"),
-                },
-                "session_id": data.get("session_id"),
-                "session_date": data.get("session_date")
-            }}
+            json={
+                "attributes": {
+                    "account_holder_id": data.get("account_holder_id"),
+                    "account": {
+                        "name": data.get("name"),
+                        "account_id": data.get("account_id")
+                    },
+                    "payment_instrument": {
+                        "mobile_number": data.get("mobile_number"),
+                    },
+                    "session_id": data.get("session_id"),
+                    "session_date": data.get("session_date")
+                }
+            }
         )
         return self.process_response(response)
 
+    def create_person_payment_instrument_addon(self, person_id: "UUID" = None, payment_instrument_product_code: "str"=None):
+        response = self.request.post(
+            url=urljoin(self.base_url, self.base_url_person_payment_instrument_addon.format(person_id=person_id)),
+            headers=self.base_headers,
+            json={
+                "payment_instrument_product_code": payment_instrument_product_code
+            }
+        )
+        return self.process_response(response)
+    
     def create_card_dispatch(self, **data: dict):
         request = self.request.post(
             url=urljoin(self.base_url, self.base_url_workflow_create_card_dispatch),
