@@ -81,6 +81,7 @@ class ZetaService(object):
     base_url_update_txn_policy = "policy/update/{card_id}"
 
     base_url_card_policy = "card/policy"
+    base_url_product_inventory = "audit/payment-instrument/inventory"
 
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
@@ -727,4 +728,11 @@ class ZetaService(object):
                                         'action': action,
                                         'attributes': attributes
                                      })
+        return self.process_response(response)
+    
+    def get_product_inventory(self):
+        base_url = self.base_url_product_inventory
+        response = self.request.get(
+            url=urljoin(self.base_url, base_url),
+            headers={**self.base_headers, 'X-API-VERSION': 'v1' })
         return self.process_response(response)

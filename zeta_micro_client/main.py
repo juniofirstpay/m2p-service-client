@@ -494,3 +494,6 @@ class ZetaMicroClient(object):
     
     def validate_otp(self, mobile_number: str, session_id: str, otp: str):
         return self.zeta_service.validate_otp(mobile_number, session_id, otp)
+
+    def get_product_inventory(self):
+        return self.zeta_service.get_product_inventory()
