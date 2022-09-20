@@ -112,6 +112,13 @@ class PersonBundleSchema(Schema):
     session_id = fields.String(required=False, allow_none=True)
     session_date = fields.String(required=False, allow_none=True)
 
+class PersonDummySwapPaymentInstrumentSchema(Schema):
+    
+    person_id = fields.String(required=True)
+    payment_instrument_product_code = fields.String(required=True)
+    ref_id = fields.String(required=True)
+    next_ref_id = fields.String(required=True)
+
 class CreateCardDispatchSchema(Schema):
     
     class CardDispatchPersonSchema(Schema):

@@ -69,6 +69,7 @@ class ZetaService(object):
     base_url_person_bundle_job = "person/{person_id}/bundle/job"
     base_url_person_account_transactions = "person/{person_id}/transactions"
     base_url_person_payment_instrument_addon = "person/{person_id}/payment-instrument/add"
+    base_url_person_payment_instrument_dummy_swap = "person/{person_id}/payment-instrument/dummy-swap"
 
     base_url_workflow_create_card_dispatch = "workflow/dispatch/card/create"
     base_url_workflow_find_card_dispatch = "workflow/dispatch/card/find"
@@ -735,4 +736,17 @@ class ZetaService(object):
         response = self.request.get(
             url=urljoin(self.base_url, base_url),
             headers={**self.base_headers, 'X-API-VERSION': 'v1' })
+        return self.process_response(response)
+    
+    def perform_payment_instrument_dummy_swap(self, person_id=None, payment_instrument_product_code=None, ref_id=None, next_ref_id=None):
+        url_fragment = self.base_url_person_payment_instrument_dummy_swap(person_id=person_id)
+        response = self.request.post(
+            url=urljoin(self.base_url, url_fragment),
+            headers={**self.base_headers, 'X-API-VERSION': 'v1' },
+            json={
+                'payment_instrument_product_code': payment_instrument_product_code,
+                'ref_id': ref_id,
+                'next_ref_id': next_ref_id
+            }
+        )
         return self.process_response(response)
