@@ -739,7 +739,7 @@ class ZetaService(object):
         return self.process_response(response)
     
     def perform_payment_instrument_dummy_swap(self, person_id=None, payment_instrument_product_code=None, ref_id=None, next_ref_id=None):
-        url_fragment = self.base_url_person_payment_instrument_dummy_swap(person_id=person_id)
+        url_fragment = self.base_url_person_payment_instrument_dummy_swap.format(person_id=person_id)
         response = self.request.post(
             url=urljoin(self.base_url, url_fragment),
             headers={**self.base_headers, 'X-API-VERSION': 'v1' },
