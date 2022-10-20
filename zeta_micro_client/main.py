@@ -528,10 +528,10 @@ class ZetaMicroClient(object):
         return self.zeta_service.create_person_bundle_job(**valid_data)
 
     def create_person_payment_instrument_addon(
-        self, person_id: "uuid.UUID", payment_instrument_product_code: "str"
+        self, person_id: "uuid.UUID", payment_instrument_product_code: "str", request_ref_id
     ):
         return self.zeta_service.create_person_payment_instrument_addon(
-            person_id, payment_instrument_product_code
+            person_id, payment_instrument_product_code, request_ref_id
         )
 
     def create_txn_policy(

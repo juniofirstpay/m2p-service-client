@@ -585,12 +585,13 @@ class ZetaService(object):
         )
         return self.process_response(response)
 
-    def create_person_payment_instrument_addon(self, person_id: "UUID" = None, payment_instrument_product_code: "str"=None):
+    def create_person_payment_instrument_addon(self, person_id: "UUID" = None, payment_instrument_product_code: "str"=None, request_ref_id: "str"=None):
         response = self.request.post(
             url=urljoin(self.base_url, self.base_url_person_payment_instrument_addon.format(person_id=person_id)),
             headers=self.base_headers,
             json={
-                "payment_instrument_product_code": payment_instrument_product_code
+                "payment_instrument_product_code": payment_instrument_product_code,
+                "request_ref_id": request_ref_id
             }
         )
         return self.process_response(response)
