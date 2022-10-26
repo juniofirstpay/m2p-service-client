@@ -150,3 +150,4 @@ class CreateCardDispatchSchema(Schema):
     receiver = fields.Nested(CardDispatchPersonSchema)
     delivery_address = fields.Nested(CardDispatchAddressSchema)
     card_attributes = fields.Nested(CardDispatchAttributesSchema)
+    dispatch_status = fields.String(required=False, allow_none=False)

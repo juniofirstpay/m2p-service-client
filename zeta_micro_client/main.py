@@ -331,7 +331,7 @@ class ZetaMicroClient(object):
 
     def create_card_dispatch(
         self,
-        person_id: "UUID",
+        person_id: "uuid.UUID",
         order_id: str,
         dispatcher: str,
         card_form_factor_id: str,
@@ -339,21 +339,26 @@ class ZetaMicroClient(object):
         receiver: dict,
         delivery_address: dict,
         card_attributes: dict,
+        dispatch_status: str = None
     ):
         from .schema import CreateCardDispatchSchema
 
-        valid_data = CreateCardDispatchSchema().load(
-            {
-                "person_id": person_id,
-                "order_id": order_id,
-                "dispatcher": dispatcher,
-                "card_form_factor_id": card_form_factor_id,
-                "customer": customer,
-                "receiver": receiver,
-                "delivery_address": delivery_address,
-                "card_attributes": card_attributes,
-            }
-        )
+        data = {
+            "person_id": person_id,
+            "order_id": order_id,
+            "dispatcher": dispatcher,
+            "card_form_factor_id": card_form_factor_id,
+            "customer": customer,
+            "receiver": receiver,
+            "delivery_address": delivery_address,
+            "card_attributes": card_attributes,
+            "dispatch_status": dispatch_status
+        }
+        
+        if dispatch_status:
+            data['dispatch_status'] = dispatch_status
+        
+        valid_data = CreateCardDispatchSchema().load(data)
 
         valid_data["person_id"] = str(person_id)
         valid_data["customer"]["person_id"] = str(valid_data["customer"]["person_id"])
