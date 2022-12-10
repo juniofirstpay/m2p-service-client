@@ -3,12 +3,12 @@ from .service import ZetaService
 from .env import __zeta_config as __config
 from .v2 import ZetaClient as ZetaClientV2
 
-zeta_service = ZetaService(__config.get('endpoint'),
-                           __config.get('clientid'),
-                           __config.get('clientsecret'),
-                           __config.get('apikey'))
+# zeta_service = ZetaService(__config.get('endpoint'),
+#                            __config.get('clientid'),
+#                            __config.get('clientsecret'),
+#                            __config.get('apikey'))
 
-zeta_client = ZetaMicroClient(zeta_service)
+# zeta_client = ZetaMicroClient(zeta_service)
 
 
 def ZetaClient():
