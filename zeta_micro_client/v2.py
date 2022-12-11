@@ -1,6 +1,6 @@
 from .main import ZetaMicroClient
 from .service import ZetaService
-from zeta_micro_client.env import get_config
+from .env import get_config
 
 def ZetaClient(onboarding_partner: str):
     if onboarding_partner == "ZETA_RBL":
