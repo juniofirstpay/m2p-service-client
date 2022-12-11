@@ -93,7 +93,7 @@ def setup_client(env):
         print(e)
 
 
-def config(onboarding_partner_name: str):
+def get_config(onboarding_partner_name: str):
     if onboarding_partner_name == 'ZETA_RBL':
         return __zeta_config
     elif onboarding_partner_name == 'M2P_TRANSCORP':
