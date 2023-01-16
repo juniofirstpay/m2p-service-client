@@ -39,7 +39,9 @@ class ZetaService(object):
     base_url_update_account = 'account/{account_id}/update'
 
     base_url_account_debit = "transactions/debit"
+    base_url_account_debit_job = "/transactions/debit/job"
     base_url_account_credit = "transactions/credit"
+    base_url_account_credit_job = "/transactions/credit/job"
     base_url_account_intra_transfer = "transactions/intra-transfer"
     base_url_txn_reversal = "transactions/{txn_id}/reversal"
     base_url_txn_get = "transactions/{txn_id}/details"
@@ -254,10 +256,23 @@ class ZetaService(object):
                                      headers=self.base_headers,
                                      json=kwargs)
         return self.process_response(response)
-
+    
+    def account_debit_job(self, **kwargs) -> Dict:
+        response = self.request.post(url=urljoin(self.base_url, self.base_url_account_debit_job),
+                                     headers=self.base_headers,
+                                     json=kwargs)
+        return self.process_response(response)
+    
     def account_credit(self, **kwargs) -> Dict:
         response = self.request.post(url=urljoin(self.base_url,
                                                  self.base_url_account_credit),
+                                     headers=self.base_headers,
+                                     json=kwargs)
+        return self.process_response(response)
+    
+    def account_credit_job(self, **kwargs) -> Dict:
+        response = self.request.post(url=urljoin(self.base_url,
+                                                 self.base_url_account_credit_job),
                                      headers=self.base_headers,
                                      json=kwargs)
         return self.process_response(response)

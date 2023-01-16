@@ -183,7 +183,8 @@ class ZetaMicroClient(object):
             "txn_id": txn_id,
         }
         valid_data = AccountDebitSchema().load(data)
-        response = self.zeta_service.account_debit(**valid_data)
+        # response = self.zeta_service.account_debit(**valid_data)
+        response = self.zeta_service.account_debit_job(**valid_data)
         return response
 
     def credit_account(
@@ -203,7 +204,8 @@ class ZetaMicroClient(object):
             "txn_id": txn_id,
         }
         valid_data = AccountCreditSchema().load(data)
-        response = self.zeta_service.account_credit(**valid_data)
+        # response = self.zeta_service.account_credit(**valid_data)
+        response = self.zeta_service.account_credit_job(**valid_data)
         return response
 
     def account_transfer(
