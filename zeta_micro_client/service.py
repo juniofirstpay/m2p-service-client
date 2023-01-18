@@ -20,8 +20,10 @@ class ZetaService(object):
     base_url_get_account = 'account/{account_id}/details'
 
     base_url_get_account_balance = 'account/{account_id}/balance'
+    base_url_get_account_balance_job = 'account/{account_id}/balance/job'
     base_url_get_funding_account_balance = 'account/funding/balance'
     base_url_get_account_credit_limit = 'account/{account_id}/credit-limit'
+    base_url_get_account_credit_limit_job = 'account/{account_id}/credit-limit/job'
     base_url_get_account_debit_limit = 'account/{account_id}/debit-limit'
     base_url_get_account_holder_balance = 'account/account-holder/{account_holder_id}/balance'
     base_url_get_account_holder_token = 'account-holder/{account_holder_id}/token'
@@ -287,6 +289,13 @@ class ZetaService(object):
                                     headers=self.base_headers)
         return self.process_response(response)
     
+    def get_balance_job(self, params: Optional[Dict] = None, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(url=urljoin(self.base_url,
+                                                self.base_url_get_account_balance_job.format(account_id=kwargs.get('account_id'))),
+                                    headers=self.base_headers,
+                                    params=params)
+        return self.process_response(response)
+    
     def get_funding_account_balance(self) -> "Tuple[Optional[int], Dict]":
         response = self.request.get(url=urljoin(self.base_url, self.base_url_get_funding_account_balance),
                                     headers=self.base_headers)
@@ -296,6 +305,13 @@ class ZetaService(object):
         response = self.request.get(url=urljoin(self.base_url,
                                                 self.base_url_get_account_credit_limit.format(account_id=kwargs.get('account_id'))),
                                     headers={**self.base_headers, 'X-API-VERSION': 'v1'})
+        return self.process_response(response)
+    
+    def get_credit_limit_job(self, params: Optional[Dict] = None, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(url=urljoin(self.base_url,
+                                                self.base_url_get_account_credit_limit_job.format(account_id=kwargs.get('account_id'))),
+                                    headers={**self.base_headers, 'X-API-VERSION': 'v1'},
+                                    params=params)
         return self.process_response(response)
     
     def get_debit_limit(self, **kwargs) -> Tuple[Optional[int], Dict]:
