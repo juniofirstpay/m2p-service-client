@@ -3,6 +3,7 @@ from urllib.parse import urljoin
 from typing import List, Dict, Tuple, Optional, Union
 
 import urllib
+from uuid import UUID
 from requests.models import Response
 
 
