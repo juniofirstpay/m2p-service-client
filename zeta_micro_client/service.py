@@ -25,6 +25,7 @@ class ZetaService(object):
     base_url_get_account_debit_limit = 'account/{account_id}/debit-limit'
     base_url_get_account_holder_balance = 'account/account-holder/{account_holder_id}/balance'
     base_url_get_account_holder_token = 'account-holder/{account_holder_id}/token'
+    base_url_get_account_holder_kyc_token = 'account-holder/{account_holder_id}/kyc-token'
 
     base_url_create_resource = 'account/payment-instrument/create'
     base_url_get_resource = 'account/payment-instrument/{resource_id}'
@@ -313,6 +314,15 @@ class ZetaService(object):
     def get_account_holder_token(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.get(url=urljoin(self.base_url, self.base_url_get_account_holder_token.format(
             account_holder_id=kwargs.get("account_holder_id"))))
+        return self.process_response(response)
+    
+    def get_account_holder_kyc_token(self, **kwargs) -> Tuple[Optional[int], Dict]:
+        response = self.request.get(url=urljoin(
+            self.base_url, 
+            self.base_url_get_account_holder_kyc_token.format(
+                account_holder_id=kwargs.get("account_golder_id")
+            )
+        ))
         return self.process_response(response)
 
     def fetch_resource_transactions(self, **kwargs) -> Tuple[Optional[int], Dict]:
