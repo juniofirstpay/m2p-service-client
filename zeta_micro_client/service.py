@@ -321,7 +321,7 @@ class ZetaService(object):
         response = self.request.get(url=urljoin(
             self.base_url, 
             self.base_url_get_account_holder_kyc_token.format(
-                account_holder_id=kwargs.get("account_golder_id")
+                account_holder_id=kwargs.get("account_holder_id")
             )
         ))
         return self.process_response(response)
