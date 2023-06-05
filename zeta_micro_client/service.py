@@ -335,7 +335,7 @@ class ZetaService(object):
                 account_holder_id=kwargs.get("account_holder_id")
                 )
             ))
-        return response    
+        return self.process_response(response)
     
     def get_account_holder_kyc_status(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.get(url=urljoin(
