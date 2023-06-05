@@ -267,8 +267,12 @@ class ZetaMicroClient(object):
         response = self.zeta_service.get_account_holder_kyc_token(account_holder_id=account_holder_id)
         return response
     
-    def get_account_holder_kyc_upgrade(self, account_holder_id: str):
-        response = self.zeta_service.account_holder_kyc_upgrade(account_holder_id=account_holder_id)
+    def process_account_holder_kyc_upgrade(self, account_holder_id: str):
+        response = self.zeta_service.process_account_holder_kyc_upgrade(account_holder_id=account_holder_id)
+        return response
+    
+    def get_account_holder_kyc_status(self, account_holder_id: str):
+        response = self.zeta_service.get_account_holder_kyc_status(account_holder_id=account_holder_id)
         return response
 
     def get_resource_txns(self, resource_id: str):
