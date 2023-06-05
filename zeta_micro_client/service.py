@@ -27,6 +27,7 @@ class ZetaService(object):
     base_url_get_account_holder_balance = 'account/account-holder/{account_holder_id}/balance'
     base_url_get_account_holder_token = 'account-holder/{account_holder_id}/token'
     base_url_get_account_holder_kyc_token = 'account-holder/{account_holder_id}/kyc-token'
+    base_url_account_holder_kyc_upgrade = '/account-holder/{account_holder_id}/kyc/upgrade'
     base_url_get_account_holder_kyc_status = 'account-holder/{account_holder_id}/kyc-status'
 
     base_url_create_resource = 'account/payment-instrument/create'
@@ -326,6 +327,15 @@ class ZetaService(object):
             )
         ))
         return self.process_response(response)
+    
+    def process_account_holder_kyc_upgrade(self, **kwargs):
+        response = self.request.post(url=urljoin(
+                self.base_url,
+                self.base_url_account_holder_kyc_upgrade.format(
+                account_holder_id=kwargs.get("account_holder_id")
+                )
+            ))
+        return response    
     
     def get_account_holder_kyc_status(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.get(url=urljoin(
