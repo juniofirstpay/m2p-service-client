@@ -616,13 +616,14 @@ class ZetaService(object):
         )
         return self.process_response(response)
 
-    def create_person_payment_instrument_addon(self, person_id: "UUID" = None, payment_instrument_product_code: "str"=None, request_ref_id: "str"=None):
+    def create_person_payment_instrument_addon(self, person_id: "UUID" = None, payment_instrument_product_code: "str"=None, request_ref_id: "str"=None, person_type: "str"=None):
         response = self.request.post(
             url=urljoin(self.base_url, self.base_url_person_payment_instrument_addon.format(person_id=person_id)),
             headers=self.base_headers,
             json={
                 "payment_instrument_product_code": payment_instrument_product_code,
-                "request_ref_id": request_ref_id
+                "request_ref_id": request_ref_id,
+                "person_type": person_type
             }
         )
         return self.process_response(response)
@@ -770,7 +771,7 @@ class ZetaService(object):
             headers={**self.base_headers, 'X-API-VERSION': 'v1' })
         return self.process_response(response)
     
-    def perform_payment_instrument_dummy_swap(self, person_id=None, payment_instrument_product_code=None, ref_id=None, next_ref_id=None):
+    def perform_payment_instrument_dummy_swap(self, person_id=None, payment_instrument_product_code=None, ref_id=None, next_ref_id=None, person_type=None):
         url_fragment = self.base_url_person_payment_instrument_dummy_swap.format(person_id=person_id)
         response = self.request.post(
             url=urljoin(self.base_url, url_fragment),
@@ -778,7 +779,8 @@ class ZetaService(object):
             json={
                 'payment_instrument_product_code': payment_instrument_product_code,
                 'ref_id': ref_id,
-                'next_ref_id': next_ref_id
+                'next_ref_id': next_ref_id,
+                'person_type': person_type
             }
         )
         return self.process_response(response)
