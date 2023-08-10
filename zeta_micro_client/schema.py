@@ -118,6 +118,7 @@ class PersonDummySwapPaymentInstrumentSchema(Schema):
     payment_instrument_product_code = fields.String(required=True)
     ref_id = fields.String(required=True)
     next_ref_id = fields.String(required=True)
+    person_type = fields.String(required=False)
 
 class CreateCardDispatchSchema(Schema):
     

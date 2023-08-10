@@ -545,10 +545,10 @@ class ZetaMicroClient(object):
         return self.zeta_service.create_person_bundle_job(**valid_data)
 
     def create_person_payment_instrument_addon(
-        self, person_id: "uuid.UUID", payment_instrument_product_code: "str", request_ref_id
+        self, person_id: "uuid.UUID", payment_instrument_product_code: "str", request_ref_id, person_type: "str"
     ):
         return self.zeta_service.create_person_payment_instrument_addon(
-            person_id, payment_instrument_product_code, request_ref_id
+            person_id, payment_instrument_product_code, request_ref_id, person_type
         )
 
     def create_txn_policy(
@@ -585,6 +585,7 @@ class ZetaMicroClient(object):
         payment_instrument_product_code: "str",
         ref_id: "str",
         next_ref_id: "str",
+        person_type: "str"
     ):
         valid_data = PersonDummySwapPaymentInstrumentSchema().load(
             {
@@ -592,6 +593,7 @@ class ZetaMicroClient(object):
                 "payment_instrument_product_code": payment_instrument_product_code,
                 "ref_id": ref_id,
                 "next_ref_id": next_ref_id,
+                "person_type": person_type,
             }
         )
         return self.zeta_service.perform_payment_instrument_dummy_swap(**valid_data)
