@@ -227,6 +227,28 @@ class ZetaMicroClient(object):
         valid_data = AccountTransferSchema().load(data)
         response = self.zeta_service.account_transfer(**valid_data)
         return response
+    
+    def account_inter_transfer(
+        self,
+        txn_id: str,
+        debit_account_id: str,
+        credit_account_id: str,
+        amount: int,
+        remarks: str,
+        attributes: dict,
+    ):
+
+        data = {
+            "debit_account_id": debit_account_id,
+            "credit_account_id": credit_account_id,
+            "amount": amount,
+            "remarks": remarks,
+            "attributes": attributes,
+            "txn_id": txn_id,
+        }
+        valid_data = AccountTransferSchema().load(data)
+        response = self.zeta_service.account_inter_transfer(**valid_data)
+        return response
 
     def get_txn(self, txn_id: str):
         response = self.zeta_service.get_txn(txn_id=txn_id)
