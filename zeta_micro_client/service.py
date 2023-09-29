@@ -284,7 +284,8 @@ class ZetaService(object):
     def reverse_txn(self, **kwargs) -> Tuple[Optional[int], Dict]:
         response = self.request.post(url=urljoin(self.base_url,
                                                  self.base_url_txn_reversal.format(txn_id=kwargs.get('txn_id'))),
-                                     headers=self.base_headers)
+                                     headers=self.base_headers,
+                                     json=kwargs)
         return self.process_response(response)
     
     def get_txn(self, **kwargs) -> Tuple[Optional[int], Dict]:
