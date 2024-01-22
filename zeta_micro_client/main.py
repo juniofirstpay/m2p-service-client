@@ -185,6 +185,21 @@ class ZetaMicroClient(object):
         valid_data = AccountDebitSchema().load(data)
         response = self.zeta_service.account_debit(**valid_data)
         return response
+    
+    def purchase_on_account(
+        self, txn_id: str, account_id: str, amount: int, remarks: str, attributes: dict
+    ):
+
+        data = {
+            "debit_account_id": account_id,
+            "amount": amount,
+            "remarks": remarks,
+            "attributes": attributes,
+            "txn_id": txn_id,
+        }
+        valid_data = AccountDebitSchema().load(data)
+        response = self.zeta_service.account_purchase(**valid_data)
+        return response
 
     def credit_account(
         self,
