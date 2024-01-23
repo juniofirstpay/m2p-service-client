@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='zeta-micro-client',
     packages=['zeta_micro_client'],
-    version='1.0.2',
+    version='1.0.7',
     author="Develper Junio",
     author_email='developer@junio.in',
     classifiers=[
