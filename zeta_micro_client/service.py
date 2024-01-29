@@ -1,6 +1,6 @@
 import requests
 from urllib.parse import urljoin
-from typing import List, Dict, Tuple, Optional, Union
+from typing import List, Dict, Literal, Tuple, Optional, Union
 
 import urllib
 from uuid import UUID
@@ -76,6 +76,7 @@ class ZetaService(object):
     base_url_person_account_transactions = "person/{person_id}/transactions"
     base_url_person_payment_instrument_addon = "person/{person_id}/payment-instrument/add"
     base_url_person_payment_instrument_dummy_swap = "person/{person_id}/payment-instrument/dummy-swap"
+    base_url_set_person_account_status = "person/{person_id}/account/status"
 
     base_url_workflow_create_card_dispatch = "workflow/dispatch/card/create"
     base_url_workflow_find_card_dispatch = "workflow/dispatch/card/find"
@@ -89,7 +90,6 @@ class ZetaService(object):
 
     base_url_card_policy = "card/policy"
     base_url_product_inventory = "audit/payment-instrument/inventory"
-
 
     def __init__(self, endpoint: str, client_id: str, client_secret: str, api_key: str):
         self.base_url = endpoint
@@ -799,4 +799,16 @@ class ZetaService(object):
                 'person_type': person_type
             }
         )
+        return self.process_response(response)
+    
+    def update_person_account_status(self, person_id: str, action: Union[Literal["BLOCK"], Literal["UNBLOCK"]]):
+        url = self.base_url_set_person_account_status.format(person_id=person_id)
+        response = self.request.post(
+            url=urljoin(self.base_url, url),
+            headers={**self.base_headers},
+            json={
+                'action': action
+            }
+        )
+
         return self.process_response(response)

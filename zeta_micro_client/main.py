@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from typing import ContextManager, Dict, List, Tuple, Optional
+from typing import ContextManager, Dict, List, Literal, Tuple, Optional, Union
 from contextlib import contextmanager
 
 from marshmallow.utils import resolve_field_instance
@@ -634,3 +634,6 @@ class ZetaMicroClient(object):
             }
         )
         return self.zeta_service.perform_payment_instrument_dummy_swap(**valid_data)
+    
+    def update_person_account_status(self, person_id: str, action: Union[Literal["BLOCK"], Literal["UNBLOCK"]]):
+        return self.zeta_service.update_person_account_status(person_id, action),
