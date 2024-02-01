@@ -499,10 +499,13 @@ class ZetaService(object):
             headers=self.base_headers)
         return self.process_response(response)
 
-    def update_card_status(self, card_id, status) -> Tuple[Optional[int], Dict]:
+    def update_card_status(self, card_id, status, reason=None) -> Tuple[Optional[int], Dict]:
         req_body = {
-            "card_status": status
+            "card_status": status,
         }
+        if reason is not None:
+            req_body["reason"] = reason
+
         response = self.request.post(
             url=urljoin(
                 self.base_url,
@@ -801,14 +804,17 @@ class ZetaService(object):
         )
         return self.process_response(response)
     
-    def update_person_account_status(self, person_id: str, action: Union[Literal["BLOCK"], Literal["UNBLOCK"]]):
+    def update_person_account_status(
+        self,
+        person_id: str,
+        action: Union[Literal["BLOCK"], Literal["UNBLOCK"]],
+        reason: str,
+    ):
         url = self.base_url_set_person_account_status.format(person_id=person_id)
         response = self.request.post(
             url=urljoin(self.base_url, url),
             headers={**self.base_headers},
-            json={
-                'action': action
-            }
+            json={"action": action, "reason": reason},
         )
 
         return self.process_response(response)
