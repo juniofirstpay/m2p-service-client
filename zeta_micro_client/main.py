@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from typing import ContextManager, Dict, List, Tuple, Optional
+from typing import ContextManager, Dict, List, Literal, Tuple, Optional, Union
 from contextlib import contextmanager
 
 from marshmallow.utils import resolve_field_instance
@@ -370,8 +370,8 @@ class ZetaMicroClient(object):
         response = self.zeta_service.get_card_status(card_id=card_id)
         return response
 
-    def update_card_status(self, card_id, status):
-        response = self.zeta_service.update_card_status(card_id=card_id, status=status)
+    def update_card_status(self, card_id, status, reason=None):
+        response = self.zeta_service.update_card_status(card_id=card_id, status=status, reason=reason)
         return response
 
     def fetch_txn_limit(self, account_id: str):
@@ -634,3 +634,11 @@ class ZetaMicroClient(object):
             }
         )
         return self.zeta_service.perform_payment_instrument_dummy_swap(**valid_data)
+    
+    def update_person_account_status(
+        self,
+        person_id: str,
+        action: Union[Literal["BLOCK"], Literal["UNBLOCK"]],
+        reason: str,
+    ):
+        return self.zeta_service.update_person_account_status(person_id, action, reason)
