@@ -2,16 +2,20 @@ import pytest
 from zeta_micro_client import zeta_client
 from datetime import datetime
 
-class TestCreateAccountHolder:
 
+class TestCreateAccountHolder:
     def test_get_account_holder(self):
-        
+
         with zeta_client.open() as client:
-            (error, response) = client.get_account_holder("id", '3ae7912c-013e-4c98-b004-a9c416285126')
-            assert response.get('individual_id') == '3ae7912c-013e-4c98-b004-a9c416285126'
+            (error, response) = client.get_account_holder(
+                "id", "3ae7912c-013e-4c98-b004-a9c416285126"
+            )
+            assert (
+                response.get("individual_id") == "3ae7912c-013e-4c98-b004-a9c416285126"
+            )
             # response = client.get_account_holder("id", response.get('individual_id'))
             # assert response.get('individual_id') == '3ae7912c-013e-4c98-b004-a9c416285126'
-    
+
     # def test_create_account_holder_with_same_information(self):
     #     first_name = 'Nirbhay'
     #     middle_name = ''

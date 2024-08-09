@@ -185,7 +185,7 @@ class ZetaMicroClient(object):
         valid_data = AccountDebitSchema().load(data)
         response = self.zeta_service.account_debit(**valid_data)
         return response
-    
+
     def purchase_on_account(
         self, txn_id: str, account_id: str, amount: int, remarks: str, attributes: dict
     ):
@@ -242,7 +242,7 @@ class ZetaMicroClient(object):
         valid_data = AccountTransferSchema().load(data)
         response = self.zeta_service.account_transfer(**valid_data)
         return response
-    
+
     def account_inter_transfer(
         self,
         txn_id: str,
@@ -299,17 +299,23 @@ class ZetaMicroClient(object):
             account_holder_id=account_holder_id
         )
         return response
-    
+
     def get_account_holder_kyc_token(self, account_holder_id: str):
-        response = self.zeta_service.get_account_holder_kyc_token(account_holder_id=account_holder_id)
+        response = self.zeta_service.get_account_holder_kyc_token(
+            account_holder_id=account_holder_id
+        )
         return response
-    
+
     def process_account_holder_kyc_upgrade(self, account_holder_id: str):
-        response = self.zeta_service.process_account_holder_kyc_upgrade(account_holder_id=account_holder_id)
+        response = self.zeta_service.process_account_holder_kyc_upgrade(
+            account_holder_id=account_holder_id
+        )
         return response
-    
+
     def get_account_holder_kyc_status(self, account_holder_id: str):
-        response = self.zeta_service.get_account_holder_kyc_status(account_holder_id=account_holder_id)
+        response = self.zeta_service.get_account_holder_kyc_status(
+            account_holder_id=account_holder_id
+        )
         return response
 
     def get_resource_txns(self, resource_id: str):
@@ -371,7 +377,9 @@ class ZetaMicroClient(object):
         return response
 
     def update_card_status(self, card_id, status, reason=None):
-        response = self.zeta_service.update_card_status(card_id=card_id, status=status, reason=reason)
+        response = self.zeta_service.update_card_status(
+            card_id=card_id, status=status, reason=reason
+        )
         return response
 
     def fetch_txn_limit(self, account_id: str):
@@ -388,7 +396,7 @@ class ZetaMicroClient(object):
         receiver: dict,
         delivery_address: dict,
         card_attributes: dict,
-        dispatch_status: str = None
+        dispatch_status: str = None,
     ):
         from .schema import CreateCardDispatchSchema
 
@@ -401,12 +409,12 @@ class ZetaMicroClient(object):
             "receiver": receiver,
             "delivery_address": delivery_address,
             "card_attributes": card_attributes,
-            "dispatch_status": dispatch_status
+            "dispatch_status": dispatch_status,
         }
-        
+
         if dispatch_status:
-            data['dispatch_status'] = dispatch_status
-        
+            data["dispatch_status"] = dispatch_status
+
         valid_data = CreateCardDispatchSchema().load(data)
 
         valid_data["person_id"] = str(person_id)
@@ -582,7 +590,11 @@ class ZetaMicroClient(object):
         return self.zeta_service.create_person_bundle_job(**valid_data)
 
     def create_person_payment_instrument_addon(
-        self, person_id: "uuid.UUID", payment_instrument_product_code: "str", request_ref_id, person_type: "str"
+        self,
+        person_id: "uuid.UUID",
+        payment_instrument_product_code: "str",
+        request_ref_id,
+        person_type: "str",
     ):
         return self.zeta_service.create_person_payment_instrument_addon(
             person_id, payment_instrument_product_code, request_ref_id, person_type
@@ -622,7 +634,7 @@ class ZetaMicroClient(object):
         payment_instrument_product_code: "str",
         ref_id: "str",
         next_ref_id: "str",
-        person_type: "str"
+        person_type: "str",
     ):
         valid_data = PersonDummySwapPaymentInstrumentSchema().load(
             {
@@ -634,7 +646,7 @@ class ZetaMicroClient(object):
             }
         )
         return self.zeta_service.perform_payment_instrument_dummy_swap(**valid_data)
-    
+
     def update_person_account_status(
         self,
         person_id: str,

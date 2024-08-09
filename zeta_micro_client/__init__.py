@@ -12,10 +12,12 @@ from .v2 import ZetaClient as ZetaClientV2
 
 
 def ZetaClient():
-    zeta_service = ZetaService(__config.get('endpoint'),
-                               __config.get('clientid'),
-                               __config.get('clientsecret'),
-                               __config.get('apikey'))
+    zeta_service = ZetaService(
+        __config.get("endpoint"),
+        __config.get("clientid"),
+        __config.get("clientsecret"),
+        __config.get("apikey"),
+    )
 
     zeta_client = ZetaMicroClient(zeta_service)
     return zeta_client

@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='zeta-micro-client',
-    packages=['zeta_micro_client'],
-    version='1.0.7',
+    name="zeta-micro-client",
+    packages=["zeta_micro_client"],
+    version="1.0.7",
     author="Develper Junio",
-    author_email='developer@junio.in',
+    author_email="developer@junio.in",
     classifiers=[
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.7',
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.7",
     ],
     description="Zeta Microservice Service Client",
     license="MIT license",
@@ -31,6 +31,6 @@ setup(
         "PyYAML==5.4.1",
         "requests==2.26.0",
         "toml==0.10.2",
-        "urllib3==1.26.6"
-    ]
+        "urllib3==1.26.6",
+    ],
 )
