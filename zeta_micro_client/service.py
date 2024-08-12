@@ -54,6 +54,7 @@ class ZetaService(object):
 
     base_url_account_debit = "transactions/debit"
     base_url_account_purchase = "transactions/purchase"
+    base_url_account_fee = "transactions/fee"
     base_url_account_credit = "transactions/credit"
     base_url_account_intra_transfer = "transactions/intra-transfer"
     base_url_account_inter_transfer = "transactions/inter-transfer"
@@ -327,6 +328,15 @@ class ZetaService(object):
     def account_purchase(self, **kwargs) -> Dict:
         response = self.request.post(
             url=urljoin(self.base_url, self.base_url_account_purchase),
+            headers=self.base_headers,
+            json=kwargs,
+            timeout=self.timeout,
+        )
+        return self.process_response(response)
+    
+    def account_fee(self, **kwargs) -> Dict:
+        response = self.request.post(
+            url=urljoin(self.base_url, self.base_url_account_fee),
             headers=self.base_headers,
             json=kwargs,
             timeout=self.timeout,

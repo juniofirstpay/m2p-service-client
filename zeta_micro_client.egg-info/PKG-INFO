@@ -1,14 +1,26 @@
 Metadata-Version: 2.1
 Name: zeta-micro-client
-Version: 1.0.9
+Version: 1.0.10
 Summary: Zeta Microservice Service Client
-Home-page: UNKNOWN
 Author: Develper Junio
 Author-email: developer@junio.in
 License: MIT license
-Platform: UNKNOWN
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3.7
-
-UNKNOWN
-
+Requires-Dist: attrs==21.2.0
+Requires-Dist: certifi==2021.5.30
+Requires-Dist: charset-normalizer==2.0.4
+Requires-Dist: colorama==0.4.4
+Requires-Dist: idna==3.2
+Requires-Dist: iniconfig==1.1.1
+Requires-Dist: marshmallow==3.13.0
+Requires-Dist: packaging==21.0
+Requires-Dist: pluggy==0.13.1
+Requires-Dist: py==1.10.0
+Requires-Dist: pyaml==21.8.3
+Requires-Dist: pyparsing==2.4.7
+Requires-Dist: pytest==6.2.4
+Requires-Dist: PyYAML==5.4.1
+Requires-Dist: requests==2.26.0
+Requires-Dist: toml==0.10.2
+Requires-Dist: urllib3==1.26.6
