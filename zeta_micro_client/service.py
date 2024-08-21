@@ -484,7 +484,7 @@ class ZetaService(object):
                     account_holder_id=kwargs.get("account_holder_id")
                 ),
             ),
-            timeout=self.timeout
+            timeout=10
         )
         return self.process_response(response)
 
