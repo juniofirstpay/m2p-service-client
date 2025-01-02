@@ -422,7 +422,7 @@ class ZetaService(object):
                 ),
             ),
             headers={**self.base_headers, "X-API-VERSION": "v1"},
-            timeout=self.timeout,
+            timeout=kwargs.get("timeout") or self.timeout,
         )
         return self.process_response(response)
 
