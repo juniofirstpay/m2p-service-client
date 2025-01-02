@@ -296,7 +296,7 @@ class ZetaMicroClient(object):
         return self.zeta_service.get_funding_account_balance()
 
     def get_credit_limit(self, account_id: str):
-        response = self.zeta_service.get_credit_limit(account_id=account_id)
+        response = self.zeta_service.get_credit_limit(account_id=account_id, timeout=(3.05, 3.05))
         return response
 
     def get_debit_limit(self, account_id: str):
