@@ -58,6 +58,7 @@ class ZetaService(object):
     base_url_account_credit = "transactions/credit"
     base_url_account_intra_transfer = "transactions/intra-transfer"
     base_url_account_inter_transfer = "transactions/inter-transfer"
+    base_url_account_wallet_transfer = "transactions/wallet-transfer"
     base_url_txn_reversal = "transactions/{txn_id}/reversal"
     base_url_txn_get = "transactions/{txn_id}/details"
 
@@ -355,6 +356,15 @@ class ZetaService(object):
     def account_transfer(self, **kwargs) -> Dict:
         response = self.request.post(
             url=urljoin(self.base_url, self.base_url_account_intra_transfer),
+            headers=self.base_headers,
+            json=kwargs,
+            timeout=self.timeout,
+        )
+        return self.process_response(response)
+    
+    def account_wallet_transfer(self, **kwargs) -> Dict:
+        response = self.request.post(
+            url=urljoin(self.base_url, self.base_url_account_wallet_transfer),
             headers=self.base_headers,
             json=kwargs,
             timeout=self.timeout,

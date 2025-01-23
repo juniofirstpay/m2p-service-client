@@ -18,6 +18,7 @@ from .schema import (
     AccountCreditSchema,
     AccountDebitSchema,
     AccountTransferSchema,
+    AccountWalletTransferSchema
 )
 from .service import ZetaService
 
@@ -278,6 +279,26 @@ class ZetaMicroClient(object):
         }
         valid_data = AccountTransferSchema().load(data)
         response = self.zeta_service.account_inter_transfer(**valid_data)
+        return response
+    
+    def account_wallet_transfer(
+        self,
+        txn_id: str,
+        account_id: str,
+        amount: int,
+        remarks: str,
+        attributes: dict,
+    ):
+
+        data = {
+            "account_id": account_id,
+            "amount": amount,
+            "remarks": remarks,
+            "attributes": attributes,
+            "txn_id": txn_id,
+        }
+        valid_data = AccountWalletTransferSchema().load(data)
+        response = self.zeta_service.account_wallet_transfer(**valid_data)
         return response
 
     def get_txn(self, txn_id: str):

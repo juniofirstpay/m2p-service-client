@@ -77,6 +77,13 @@ class AccountTransferSchema(Schema):
     attributes = fields.Dict(keys=fields.String(), values=fields.String())
     txn_id = fields.Str(required=True)
 
+class AccountWalletTransferSchema(Schema):
+    account_id = fields.Str(required=True)
+    amount = fields.Integer(required=True)
+    remarks = fields.Str(required=True)
+    attributes = fields.Dict(keys=fields.String(), values=fields.String())
+    txn_id = fields.Str(required=True)
+
 
 class PersonAccountHolderSchema(Schema):
 
