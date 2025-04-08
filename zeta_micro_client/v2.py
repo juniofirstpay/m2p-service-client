@@ -24,4 +24,14 @@ def ZetaClient(onboarding_partner: str):
         )
         zeta_client = ZetaMicroClient(zeta_service)
 
+    if onboarding_partner == "M2P_TRANSCORP_V2":
+        config = get_config(onboarding_partner)
+        zeta_service = ZetaService(
+            config.get("endpoint"),
+            config.get("clientid"),
+            config.get("clientsecret"),
+            config.get("apikey"),
+        )
+        zeta_client = ZetaMicroClient(zeta_service)
+
     return zeta_client
