@@ -24,8 +24,9 @@ from .service import ZetaService
 
 
 class ZetaMicroClient(object):
-    def __init__(self, zeta_service: ZetaService):
+    def __init__(self, zeta_service: ZetaService, onboarding_partner: str = None):
         self.zeta_service = zeta_service
+        self.__onboarding_partner = onboarding_partner
 
     @contextmanager
     def open(self):
@@ -184,7 +185,14 @@ class ZetaMicroClient(object):
             "txn_id": txn_id,
         }
         valid_data = AccountDebitSchema().load(data)
-        response = self.zeta_service.account_debit(**valid_data)
+
+        if (self.__onboarding_partner == "M2P_TRANSCORP_V2" 
+            and isinstance(valid_data.get("attributes"), dict) 
+            and "is_cashback" in valid_data["attributes"]
+            and valid_data["attributes"]["is_cashback"]):
+            response = self.zeta_service.account_cashback_debit(**valid_data)    
+        else:
+            response = self.zeta_service.account_debit(**valid_data)
         return response
 
     def purchase_on_account(
@@ -234,7 +242,13 @@ class ZetaMicroClient(object):
             "txn_id": txn_id,
         }
         valid_data = AccountCreditSchema().load(data)
-        response = self.zeta_service.account_credit(**valid_data)
+        if (self.__onboarding_partner == "M2P_TRANSCORP_V2" 
+            and isinstance(valid_data.get("attributes"), dict)
+            and "is_cashback" in valid_data["attributes"]
+            and valid_data["attributes"]["is_cashback"]):
+            response = self.zeta_service.account_cashback_credit(**valid_data)    
+        else:
+            response = self.zeta_service.account_credit(**valid_data)
         return response
 
     def account_transfer(
