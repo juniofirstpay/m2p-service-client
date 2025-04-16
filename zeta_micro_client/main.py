@@ -649,6 +649,16 @@ class ZetaMicroClient(object):
         return self.zeta_service.create_person_payment_instrument_addon(
             person_id, payment_instrument_product_code, request_ref_id, person_type
         )
+    
+    def create_payment_instrument_addon(
+        self,
+        person_id: uuid.UUID,
+        product_code: str,
+        request_ref_id: str
+    ):
+        return self.zeta_service.create_payment_instrument_addon(
+            person_id, product_code, request_ref_id
+        )
 
     def create_txn_policy(
         self, account_holder_id: uuid, card_id: uuid, txn_policy_rules: list

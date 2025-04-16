@@ -115,6 +115,10 @@ class ZetaService(object):
     base_url_card_policy = "card/policy"
     base_url_product_inventory = "audit/payment-instrument/inventory"
 
+    base_url_payment_instrument_addon = (
+        "/payment-instruments/addon"
+    )
+
     def __init__(
         self, endpoint: str, client_id: str, client_secret: str, api_key: str, timeout=3
     ):
@@ -874,6 +878,27 @@ class ZetaService(object):
                 "payment_instrument_product_code": payment_instrument_product_code,
                 "request_ref_id": request_ref_id,
                 "person_type": person_type,
+            },
+            timeout=self.timeout
+        )
+        return self.process_response(response)
+    
+    def create_payment_instrument_addon(
+        self,
+        person_id: "UUID" = None,
+        payment_instrument_product_code: "str" = None,
+        request_ref_id: "str" = None
+    ):
+        response = self.request.post(
+            url=urljoin(
+                self.base_url,
+                self.base_url_payment_instrument_addon,
+            ),
+            headers=self.base_headers,
+            json={
+                "person_id": str(person_id),
+                "product_code": payment_instrument_product_code,
+                "request_ref_id": request_ref_id,
             },
             timeout=self.timeout
         )
