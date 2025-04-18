@@ -319,8 +319,10 @@ class ZetaMicroClient(object):
         response = self.zeta_service.get_txn(txn_id=txn_id)
         return response
 
-    def reverse_txn(self, txn_id: str, remarks=None):
-        response = self.zeta_service.reverse_txn(txn_id=txn_id, remarks=remarks)
+    def reverse_txn(self, txn_id: str, remarks=None, attributes=None):
+        if attributes is None:
+            attributes = dict()
+        response = self.zeta_service.reverse_txn(txn_id=txn_id, remarks=remarks, attributes=attributes)
         return response
 
     def get_balance(self, account_id: str):
