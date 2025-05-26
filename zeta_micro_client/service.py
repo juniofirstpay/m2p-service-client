@@ -322,6 +322,17 @@ class ZetaService(object):
             timeout=self.timeout,
         )
         return self.process_response(response)
+    
+    def get_account_status(self, account_id: str) -> Dict:
+        response = self.request.get(
+            url=urljoin(
+                self.base_url,
+                self.base_url_update_account.format(account_id=account_id),
+            ),
+            headers=self.base_headers,
+            timeout=self.timeout,
+        )
+        return self.process_response(response)
 
     def account_debit(self, **kwargs) -> Dict:
         response = self.request.post(

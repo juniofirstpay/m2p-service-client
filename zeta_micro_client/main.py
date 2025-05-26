@@ -98,6 +98,9 @@ class ZetaMicroClient(object):
     def update_account(self, account_id: str, status: str) -> List[Dict]:
         response = self.zeta_service.update_account(account_id, status=status)
         return response
+    
+    def get_account_status(self, account_id: str):
+        return self.zeta_service.get_account_status(account_id)
 
     # Make the
     def create_account(
