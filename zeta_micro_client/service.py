@@ -51,6 +51,7 @@ class ZetaService(object):
     )
 
     base_url_update_account = "account/{account_id}/update"
+    base_url_account_status = "person/{account_id}/account/status"
 
     base_url_account_debit = "transactions/debit"
     base_url_account_purchase = "transactions/purchase"
@@ -327,7 +328,7 @@ class ZetaService(object):
         response = self.request.get(
             url=urljoin(
                 self.base_url,
-                self.base_url_update_account.format(account_id=account_id),
+                self.base_url_account_status.format(account_id=account_id),
             ),
             headers=self.base_headers,
             timeout=self.timeout,
